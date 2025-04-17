@@ -1,0 +1,20 @@
+.toy-details {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    gap: 1em;
+
+    padding: 1em;
+    outline: 1px solid black;
+    border-radius: 0.5em;
+}
+
+.toy-details img {
+    grid-column: 1;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.toy-details>.toy-info {
+    grid-column: 2;
+}
