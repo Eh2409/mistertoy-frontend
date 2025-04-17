@@ -6,6 +6,7 @@ export const toyService = {
     get,
     remove,
     save,
+    getEmptyToy,
     getLabels
 }
 
@@ -66,7 +67,7 @@ function _createToy(txt, label) {
     const toy = getEmptyToy()
     toy._id = utilService.makeId()
     toy.name = txt
-    toy.imgUrl = txt
+    toy.imgUrl = `/src/assets/img/${txt}.jpg`
     toy.price = utilService.getRandomIntInclusive(1, 300)
     toy.labels.push(label)
     toy.createdAt = Date.now()

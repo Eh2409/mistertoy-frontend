@@ -27,8 +27,8 @@ function removeToy(toyId) {
         })
 }
 function saveToy(toy) {
-    const type = toy._id ? ADD_TOY : UPDATE_TOY
-    return toyService.save()
+    const type = toy._id ? UPDATE_TOY : ADD_TOY
+    return toyService.save(toy)
         .then(() => store.dispatch({ type, toy }))
         .catch(err => {
             console.log('toy actions => Cannot save toy:', err)

@@ -1,0 +1,20 @@
+.labels-picker {
+    position: relative;
+}
+
+.labels-picker>.select-btn {
+    outline: 1px solid black;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding-inline-start: 0.2em;
+}
+
+.labels-picker>.label-list {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    background-color: var(--bgColor1);
+    outline: 1px solid black;
+    padding: 0.5em;
+}

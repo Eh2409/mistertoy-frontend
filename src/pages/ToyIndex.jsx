@@ -1,6 +1,7 @@
 
 import { useSelector } from 'react-redux'
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom';
 
 import { toyActions } from '../store/actions/toy.actions.js'
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
@@ -37,6 +38,7 @@ export function ToyIndex() {
 
             <header>
                 <h2>toys list</h2>
+                <Link to='/toy/add'><button>Add toy</button></Link>
             </header>
 
             <ToyList toys={toys} onRemoveToy={onRemoveToy} />
