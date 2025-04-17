@@ -1,4 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
+import { UserMsg } from './UserMsg.jsx'
+
 export function AppHeder(props) {
 
     return (
@@ -7,7 +9,9 @@ export function AppHeder(props) {
 
             <nav>
                 <NavLink to="/" >Home</NavLink>
+                <NavLink to="/toy" >Toys</NavLink>
             </nav>
+            <UserMsg />
         </header>
     )
 }

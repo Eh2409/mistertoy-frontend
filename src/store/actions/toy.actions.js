@@ -19,7 +19,7 @@ function loadToys() {
 }
 
 function removeToy(toyId) {
-    return toyService.remove()
+    return toyService.remove(toyId)
         .then(() => store.dispatch({ type: REMOVE_TOY, toyId: toyId }))
         .catch(err => {
             console.log('toy actions => Cannot remove toy:', err)

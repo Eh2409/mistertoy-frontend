@@ -1,0 +1,17 @@
+.toy-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1em;
+}
+
+.toy-list li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
+
+    border-radius: 0.1em;
+    padding: 1em;
+    outline: solid 2px black;
+}

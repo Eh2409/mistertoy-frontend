@@ -23,6 +23,6 @@ export function RootCpm() {
 
                 </section>
             </Router>
-        // </Provider>
+        </Provider>
     )
 }

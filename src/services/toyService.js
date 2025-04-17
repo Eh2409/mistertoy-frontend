@@ -56,7 +56,7 @@ function _createToys() {
         for (let i = 0; i < 20; i++) {
             const txt = txts[utilService.getRandomIntInclusive(0, txts.length - 1)];
             const lable = labels[utilService.getRandomIntInclusive(0, labels.length - 1)]
-            toys.push(_createToy(txt + (i + 1), lable))
+            toys.push(_createToy(txt, lable))
         }
         utilService.saveToStorage(TOYS_KEY, toys)
     }
