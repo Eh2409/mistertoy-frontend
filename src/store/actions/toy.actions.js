@@ -9,8 +9,8 @@ export const toyActions = {
     saveToy,
 }
 
-function loadToys() {
-    return toyService.query()
+function loadToys(filterBy) {
+    return toyService.query(filterBy)
         .then(toys => store.dispatch({ type: SET_TOYS, toys: toys }))
         .catch(err => {
             console.log('toy actions => Cannot load toys:', err)

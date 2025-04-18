@@ -7,7 +7,9 @@ export const toyService = {
     remove,
     save,
     getEmptyToy,
-    getLabels
+    getLabels,
+    getDefaultFilter,
+    getFilterFromSearchParams
 }
 
 
@@ -16,8 +18,31 @@ _createToys()
 
 window.cs = toyService
 
-function query() {
+function query(filterBy) {
     return storageService.query(TOYS_KEY)
+        .then(toys => {
+
+            if (filterBy.name) {
+                const regExp = new RegExp(filterBy.name, 'i')
+                toys = toys.filter(toy => regExp.test(toy.name))
+            }
+
+            if (filterBy.price) {
+                toys = toys.filter(toy => toy.price >= filterBy.price)
+            }
+
+            if (filterBy.inStock !== undefined) {
+                toys = toys.filter(toy => toy.inStock === filterBy.inStock)
+            }
+
+            if (filterBy.labels.length > 0) {
+                toys = toys.filter(toy => {
+                    return toy.labels.some(label => filterBy.labels.includes(label))
+                })
+            }
+
+            return toys
+        })
 }
 function get(toyId) {
     return storageService.get(TOYS_KEY, toyId)
@@ -46,6 +71,45 @@ function getEmptyToy() {
         createdAt: 0,
         inStock: true,
     }
+}
+function getDefaultFilter() {
+    return {
+        name: '',
+        price: 0,
+        labels: [],
+        inStock: undefined
+    }
+}
+
+function getFilterFromSearchParams(searchParams) {
+
+    const defaultFilterBy = { ...getDefaultFilter() }
+    const filterBy = {}
+
+    for (const field in defaultFilterBy) {
+        if (field === 'price') {
+            filterBy[field] = +searchParams.get(`${field}`) || defaultFilterBy[field]
+        } else if (field === 'labels') {
+            filterBy[field] = searchParams.getAll('labels') || defaultFilterBy[field]
+        } else if (field === 'inStock') {
+            var value = searchParams.get('inStock') || defaultFilterBy[field]
+            switch (value) {
+                case 'true':
+                    filterBy[field] = true
+                    break;
+                case 'false':
+                    filterBy[field] = false
+                    break;
+                case '':
+                    filterBy[field] = undefined
+                    break;
+            }
+        } else {
+            filterBy[field] = searchParams.get(`${field}`) || defaultFilterBy[field]
+        }
+    }
+
+    return filterBy
 }
 
 function _createToys() {

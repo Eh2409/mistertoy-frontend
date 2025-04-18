@@ -1,26 +1,31 @@
 
 import { useSelector } from 'react-redux'
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { toyActions } from '../store/actions/toy.actions.js'
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
+import { toyService } from '../services/toyService.js';
 
 import { ToyList } from '../cmps/ToyList.jsx'
+import { ToyFilter } from '../cmps/ToyFilter.jsx';
 
 
 export function ToyIndex() {
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
-    console.log('toys:', toys)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState({ ...toyService.getFilterFromSearchParams(searchParams) })
+
 
     useEffect(() => {
-        toyActions.loadToys()
+        setSearchParams(filterBy)
+        toyActions.loadToys(filterBy)
             .catch(err => {
                 console.log('err:', err)
                 showErrorMsg('Cannot load toys')
             })
-    }, [])
+    }, [filterBy])
 
     function onRemoveToy(toyId) {
         toyActions.removeToy(toyId)
@@ -33,11 +38,16 @@ export function ToyIndex() {
             })
     }
 
+    function onSetFilterBy(filterByToEdit) {
+        setFilterBy(prev => ({ ...prev, ...filterByToEdit }))
+    }
+
     return (
         <section className='toy-index'>
 
             <header>
-                <h2>toys list</h2>
+                <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+                <h3>toys list</h3>
                 <Link to='/toy/add'><button>Add toy</button></Link>
             </header>
 

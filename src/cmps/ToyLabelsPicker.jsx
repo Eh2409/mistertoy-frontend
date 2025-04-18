@@ -8,7 +8,6 @@ export function ToyLabelsPicker({ labels, onSaveLabels, toyEditLabels = null }) 
 
     const [isLabelPickerOpen, setIsLabelPickerOpen] = useState(false)
     const [labelsPicked, setLabelsPicked] = useState([...labels])
-    console.log('Here:', toyEditLabels)
 
     const selectBtnTitleRef = useRef()
     const labelsListRef = useRef()
@@ -42,6 +41,10 @@ export function ToyLabelsPicker({ labels, onSaveLabels, toyEditLabels = null }) 
 
     function onToggleLabelPicker() {
         setIsLabelPickerOpen(prev => prev = !isLabelPickerOpen)
+
+        if (isLabelPickerOpen) {
+            onSaveLabels(labelsPicked)
+        }
     }
 
     function handleClickOutside({ target }) {
