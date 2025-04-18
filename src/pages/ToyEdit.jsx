@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import { Loader } from "../cmps/Loader.jsx";
 
 export function ToyEdit() {
     const params = useParams()
@@ -67,6 +68,8 @@ export function ToyEdit() {
             })
 
     }
+
+    if (toyId && !toyToEdit._id) return <Loader />
 
     const { name, price, imgUrl, labels } = toyToEdit
 

@@ -3,6 +3,7 @@ import { toyService } from "../services/toyService.js"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
+import { Loader } from "../cmps/Loader.jsx"
 
 export function ToyDetails() {
 
@@ -27,7 +28,7 @@ export function ToyDetails() {
             })
     }
 
-    if (!toy) return 'loading...'
+    if (!toy) return < Loader />
 
     const { imgUrl, name, price } = toy
 

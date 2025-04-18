@@ -10,11 +10,14 @@ import { toyService } from '../services/toyService.js';
 import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx';
 import { ToySort } from '../cmps/ToySortBy.jsx';
+import { Loader } from '../cmps/Loader.jsx';
 
 
 export function ToyIndex() {
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
+    const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
+
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState({ ...toyService.getFilterFromSearchParams(searchParams) })
 
@@ -43,6 +46,7 @@ export function ToyIndex() {
         setFilterBy(prev => ({ ...prev, ...filterByToEdit }))
     }
 
+
     return (
         <section className='toy-index'>
             <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
@@ -51,8 +55,11 @@ export function ToyIndex() {
                 <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
                 <Link to='/toy/add'><button>Add toy</button></Link>
             </header>
-
-            <ToyList toys={toys} onRemoveToy={onRemoveToy} />
+            {isLoad ? <Loader /> :
+                (toys.length > 0
+                    ? < ToyList toys={toys} onRemoveToy={onRemoveToy} />
+                    : <div className='no-toy'>No matching toy found.</div>)
+            }
 
         </section >
     )

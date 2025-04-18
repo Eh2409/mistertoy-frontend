@@ -1,7 +1,7 @@
 
 import { toyService } from '../../services/toyService.js'
 import { store } from '../store.js'
-import { SET_TOYS, REMOVE_TOY, ADD_TOY, UPDATE_TOY } from "../reducers/toy.reducer.js"
+import { SET_TOYS, REMOVE_TOY, ADD_TOY, UPDATE_TOY, SET_LOADER } from "../reducers/toy.reducer.js"
 
 export const toyActions = {
     loadToys,
@@ -10,11 +10,15 @@ export const toyActions = {
 }
 
 function loadToys(filterBy) {
+    store.dispatch({ type: SET_LOADER, isLoad: true })
     return toyService.query(filterBy)
         .then(toys => store.dispatch({ type: SET_TOYS, toys: toys }))
         .catch(err => {
             console.log('toy actions => Cannot load toys:', err)
             throw err
+        })
+        .finally(() => {
+            store.dispatch({ type: SET_LOADER, isLoad: false })
         })
 }
 

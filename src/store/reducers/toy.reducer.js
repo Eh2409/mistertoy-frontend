@@ -5,10 +5,13 @@ export const REMOVE_TOY = 'REMOVE_TOY'
 export const ADD_TOY = 'ADD_TOY'
 export const UPDATE_TOY = 'UPDATE_TOY'
 
+// Loader
+export const SET_LOADER = 'SET_LOADER'
 
 
 const initialState = {
     toys: [],
+    isLoad: false
 }
 
 export function toyReducer(state = initialState, cmd) {
@@ -28,6 +31,11 @@ export function toyReducer(state = initialState, cmd) {
                 ...state,
                 toys: state.toys.map(toy => toy._id === cmd.toy._id ? cmd.toy : toy)
             }
+
+        /// LOADER
+
+        case SET_LOADER:
+            return { ...state, isLoad: cmd.isLoad }
 
         default: return state
     }
