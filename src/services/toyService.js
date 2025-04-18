@@ -41,6 +41,18 @@ function query(filterBy) {
                 })
             }
 
+
+            if (filterBy.sortType === 'name') {
+                toys = toys.sort((t1, t2) => t1.name.localeCompare(t2.name))
+            }
+            if (filterBy.sortType === 'price') {
+                toys = toys.sort((t1, t2) => (t1.price - t2.price) * filterBy.sortDir)
+            }
+            if (filterBy.sortType === 'createdAt') {
+                toys = toys.sort((t1, t2) => (t1.createdAt - t2.createdAt) * filterBy.sortDir)
+            }
+
+
             return toys
         })
 }
@@ -77,7 +89,9 @@ function getDefaultFilter() {
         name: '',
         price: 0,
         labels: [],
-        inStock: undefined
+        inStock: undefined,
+        sortType: 'createdAt',
+        sortDir: -1
     }
 }
 
@@ -87,7 +101,7 @@ function getFilterFromSearchParams(searchParams) {
     const filterBy = {}
 
     for (const field in defaultFilterBy) {
-        if (field === 'price') {
+        if (field === 'price' || field === 'sortDir') {
             filterBy[field] = +searchParams.get(`${field}`) || defaultFilterBy[field]
         } else if (field === 'labels') {
             filterBy[field] = searchParams.getAll('labels') || defaultFilterBy[field]

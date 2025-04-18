@@ -9,6 +9,7 @@ import { toyService } from '../services/toyService.js';
 
 import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx';
+import { ToySort } from '../cmps/ToySortBy.jsx';
 
 
 export function ToyIndex() {
@@ -44,10 +45,10 @@ export function ToyIndex() {
 
     return (
         <section className='toy-index'>
-
-            <header>
-                <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+            <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+            <header className='flex justify-between align-center'>
                 <h3>toys list</h3>
+                <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
                 <Link to='/toy/add'><button>Add toy</button></Link>
             </header>
 
