@@ -1,4 +1,5 @@
 import { utilService } from "../services/util.service.js";
+import { useEffectOnUpdate } from '../hooks/useEffectOnUpdate.js'
 
 import { ToyLabelsPicker } from "./ToyLabelsPicker.jsx";
 
@@ -11,7 +12,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
     const debounce = useRef(utilService.debounce(onSetFilterBy, 1000))
 
 
-    useEffect(() => {
+    useEffectOnUpdate(() => {
         debounce.current(filterByToEdit)
     }, [filterByToEdit])
 

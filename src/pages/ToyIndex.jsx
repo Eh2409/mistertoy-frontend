@@ -7,6 +7,8 @@ import { toyActions } from '../store/actions/toy.actions.js'
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
 import { toyService } from '../services/toyService.js';
 
+import { useEffectOnUpdate } from '../hooks/useEffectOnUpdate.js'
+
 import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx';
 import { ToySort } from '../cmps/ToySortBy.jsx';
@@ -22,7 +24,7 @@ export function ToyIndex() {
     const [filterBy, setFilterBy] = useState({ ...toyService.getFilterFromSearchParams(searchParams) })
 
 
-    useEffect(() => {
+    useEffectOnUpdate(() => {
         setSearchParams(filterBy)
         toyActions.loadToys(filterBy)
             .catch(err => {

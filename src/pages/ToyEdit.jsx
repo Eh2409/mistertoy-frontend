@@ -1,12 +1,13 @@
 import { toyService } from "../services/toyService.js";
 import { toyActions } from "../store/actions/toy.actions.js"
+import { useConfirmTabClose } from '../hooks/useConfirmTabClose.js'
+
 
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
 
 import { ToyLabelsPicker } from "../cmps/ToyLabelsPicker.jsx";
 import { Link } from "react-router-dom";
-
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx";
 
@@ -18,7 +19,9 @@ export function ToyEdit() {
 
     const [toyToEdit, setToyToEdit] = useState({ ...toyService.getEmptyToy() })
     const [toyEditLabels, setToyEditLabels] = useState(null)
-    console.log('toyEditLabels:', toyEditLabels)
+
+    const hasChanges = useRef(false)
+    useConfirmTabClose(hasChanges)
 
     useEffect(() => {
         if (toyId) {
@@ -43,10 +46,12 @@ export function ToyEdit() {
         if (name === 'price') value = +value
 
         setToyToEdit(prev => ({ ...prev, [name]: value }))
+        hasChanges.current = true
     }
 
     function onSaveLabels(labelsPicked) {
         setToyToEdit(prev => ({ ...prev, labels: labelsPicked }))
+        hasChanges.current = true
     }
 
     function onSave(ev) {
