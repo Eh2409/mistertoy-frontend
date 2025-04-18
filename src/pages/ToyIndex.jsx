@@ -13,12 +13,15 @@ import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx';
 import { ToySort } from '../cmps/ToySortBy.jsx';
 import { Loader } from '../cmps/Loader.jsx';
+import { Popup } from '../cmps/Popup.jsx';
 
 
 export function ToyIndex() {
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState({ ...toyService.getFilterFromSearchParams(searchParams) })
@@ -48,6 +51,9 @@ export function ToyIndex() {
         setFilterBy(prev => ({ ...prev, ...filterByToEdit }))
     }
 
+    function onTogglePopup() {
+        setIsPopupOpen(!isPopupOpen)
+    }
 
     return (
         <section className='toy-index'>
@@ -62,6 +68,15 @@ export function ToyIndex() {
                     ? < ToyList toys={toys} onRemoveToy={onRemoveToy} />
                     : <div className='no-toy'>No matching toy found.</div>)
             }
+
+            {isPopupOpen
+                ? <Popup onTogglePopup={onTogglePopup} />
+                : <div className='popup-btn' onClick={onTogglePopup}>
+                    <img src="/src/assets/img/popup.png" alt="" />
+                </div>
+            }
+
+
 
         </section >
     )
