@@ -1,3 +1,4 @@
+import { Chat } from "./Chat";
 
 export function Popup({ onTogglePopup }) {
 
@@ -5,12 +6,11 @@ export function Popup({ onTogglePopup }) {
         <section className="popup">
 
             <header className="flex justify-between">
-                <h2>popup</h2>
+                <h2>Chat</h2>
                 <button onClick={onTogglePopup}>X</button>
             </header>
 
-            <main>chat</main>
-
+            <main><Chat /></main>
             <footer></footer>
 
         </section>

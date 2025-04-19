@@ -9,5 +9,17 @@
     box-shadow: 1px 1px 1px black;
 
     width: 300px;
-    height: 300px;
+    height: 400px;
+
+    overflow: hidden;
+}
+
+.popup>header {
+    padding: 0.5em;
+    height: max-content;
+}
+
+.popup>main {
+    height: 90%;
+    width: 100%;
 }
