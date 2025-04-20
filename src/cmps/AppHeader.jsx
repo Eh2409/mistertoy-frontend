@@ -4,13 +4,15 @@ import { UserMsg } from './UserMsg.jsx'
 export function AppHeder(props) {
 
     return (
-        <header>
-            <h1>mister toys</h1>
+        <header className='main-header main-layout'>
+            <div className='flex justify-between align-center '>
+                <h1>Mister Toys</h1>
 
-            <nav>
-                <NavLink to="/" >Home</NavLink>
-                <NavLink to="/toy" >Toys</NavLink>
-            </nav>
+                <nav className='flex justify-between align-center '>
+                    <NavLink to="/" >Home</NavLink>
+                    <NavLink to="/toy" >Toys</NavLink>
+                </nav>
+            </div>
             <UserMsg />
         </header>
     )

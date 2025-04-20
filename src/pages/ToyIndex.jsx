@@ -59,7 +59,7 @@ export function ToyIndex() {
         <section className='toy-index'>
             <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             <header className='flex justify-between align-center'>
-                <h3>toys list</h3>
+                <h3>Toys List</h3>
                 <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
                 <Link to='/toy/add'><button>Add toy</button></Link>
             </header>

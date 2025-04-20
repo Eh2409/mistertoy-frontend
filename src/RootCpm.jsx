@@ -17,7 +17,7 @@ export function RootCpm() {
             <Router>
                 <section >
                     <AppHeder />
-                    <main>
+                    <main className=' main-layout'>
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/toy" element={<ToyIndex />} />

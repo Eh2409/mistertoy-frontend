@@ -2,8 +2,8 @@
 export function Home() {
 
     return (
-        <section>
-            <h3>welcome to mister toy</h3>
+        <section className="home main-layout">
+            <h2>Welcome to Mister Toy</h2>
         </section>
     )
 }
