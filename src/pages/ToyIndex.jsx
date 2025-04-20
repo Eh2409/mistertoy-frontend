@@ -26,7 +26,6 @@ export function ToyIndex() {
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState({ ...toyService.getFilterFromSearchParams(searchParams) })
-    console.log('Here:', filterBy)
 
 
     useEffectOnUpdate(() => {

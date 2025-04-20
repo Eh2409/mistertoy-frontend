@@ -10,6 +10,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ name, price, labels, inStock })
     const debounce = useRef(utilService.debounce(onSetFilterBy, 1000))
+    console.log('Here:', filterByToEdit)
 
 
     useEffectOnUpdate(() => {
@@ -66,7 +67,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
                     name="inStock"
                     id="inStock"
                     onChange={handleChange}
-                    value={filterByToEdit.inStock === undefined ? '' : String(inStock)}>
+                    value={filterByToEdit.inStock === undefined ? '' : String(filterByToEdit.inStock)}>
                     <option value=''>All</option>
                     <option value='true'>In Stock</option>
                     <option value='false'>Out of Stock</option>
