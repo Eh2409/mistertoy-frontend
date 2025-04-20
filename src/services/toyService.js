@@ -45,7 +45,8 @@ function query(filterBy) {
 
 
             if (filterBy.sortType === 'name') {
-                toys = toys.sort((t1, t2) => t1.name.localeCompare(t2.name))
+
+                toys = toys.sort((t1, t2) => (t1.name.localeCompare(t2.name)) * filterBy.sortDir)
             }
             if (filterBy.sortType === 'price') {
                 toys = toys.sort((t1, t2) => (t1.price - t2.price) * filterBy.sortDir)

@@ -23,7 +23,7 @@ export function ToySort({ filterBy, onSetFilterBy }) {
                 <span>Sort By: </span>
                 <select name="sortType" id="sortType" value={editSortBy.sortType || ''} onChange={handleChange}>
                     <option value="createdAt">Create at</option>
-                    <option value="title">Title</option>
+                    <option value="name">Name</option>
                     <option value="price">Price</option>
                 </select>
             </label>
