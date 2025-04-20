@@ -36,8 +36,8 @@ export function ToyDetails() {
         <section className="toy-details">
             <img src={imgUrl} alt={imgUrl} />
             <div className="toy-info">
-                <div>{name}</div>
-                <div>{price}$</div>
+                <div className="toy-name">{name}</div>
+                <div>${price}</div>
             </div>
 
             <Link to='/toy'><button>Back to list</button></Link>

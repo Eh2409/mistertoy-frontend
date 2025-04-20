@@ -1,9 +1,25 @@
 .toy-preview {
+    display: grid;
+    gap: 0.4em;
     text-align: center;
+    margin-block-end: 0.4em;
+}
+
+.toy-preview>.toy-img-container {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .toy-preview img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: contain;
+
+    transition: 200ms ease-in-out;
+
+    &:hover {
+        scale: 1.1;
+    }
 }

@@ -88,7 +88,7 @@ export function ToyEdit() {
                 <input type="text" name='name' id="name" value={name} onChange={handleChange} required />
                 <label htmlFor="name">Price:</label>
                 <input type="number" name='price' id="price" value={price || ''} onChange={handleChange} required />
-                <label htmlFor="imgUrl">Img:</label>
+                <label htmlFor="imgUrl">Image Url:</label>
                 <input type="text" name='imgUrl' id="imgUrl" value={imgUrl} onChange={handleChange} />
                 <span>Labels:</span>
                 <ToyLabelsPicker labels={labels} onSaveLabels={onSaveLabels} toyEditLabels={toyEditLabels} />

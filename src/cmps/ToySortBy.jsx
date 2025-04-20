@@ -18,7 +18,7 @@ export function ToySort({ filterBy, onSetFilterBy }) {
     }
 
     return (
-        <section className="sort-by">
+        <section className="toy-sort flex align-center">
             <label htmlFor="sortType">
                 <span>Sort By: </span>
                 <select name="sortType" id="sortType" value={editSortBy.sortType || ''} onChange={handleChange}>

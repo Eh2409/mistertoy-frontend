@@ -72,7 +72,7 @@ export function ToyIndex() {
             {isPopupOpen
                 ? <Popup onTogglePopup={onTogglePopup} />
                 : <div className='popup-btn' onClick={onTogglePopup}>
-                    <img src="/src/assets/img/popup.png" alt="" />
+                    <img src="/src/assets/img/chat.svg" alt="" />
                 </div>
             }
 
