@@ -42,14 +42,16 @@ export function ToyLabelsPicker({ labels, onSaveLabels, toyEditLabels = null }) 
     function onToggleLabelPicker() {
         setIsLabelPickerOpen(prev => prev = !isLabelPickerOpen)
 
-        if (isLabelPickerOpen) {
+        if (isLabelPickerOpen && labels.sort().join(' ') !== labelsPicked.sort().join(' ')) {
             onSaveLabels(labelsPicked)
         }
     }
 
     function handleClickOutside({ target }) {
         if (target !== labelsListRef.current) {
-            onSaveLabels(labelsPicked)
+            if (labels.sort().join(' ') !== labelsPicked.sort().join(' ')) {
+                onSaveLabels(labelsPicked)
+            }
             setIsLabelPickerOpen(false)
         }
 
