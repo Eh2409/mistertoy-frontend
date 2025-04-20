@@ -34,3 +34,8 @@
 .toy-index>.popup-btn>img {
     width: 60%;
 }
+
+.pagination-btns {
+    text-align: center;
+    margin-block-end: 1em;
+}

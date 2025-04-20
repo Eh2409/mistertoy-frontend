@@ -14,6 +14,8 @@ export const toyService = {
 
 
 const TOYS_KEY = 'TOYS_KEY'
+const PAGE_SIZE = 12
+
 _createToys()
 
 window.cs = toyService
@@ -52,8 +54,14 @@ function query(filterBy) {
                 toys = toys.sort((t1, t2) => (t1.createdAt - t2.createdAt) * filterBy.sortDir)
             }
 
+            const maxPageCount = Math.ceil(toys.length / PAGE_SIZE)
 
-            return toys
+
+            const startIdx = filterBy.pageIdx * PAGE_SIZE
+            toys = toys.slice(startIdx, startIdx + PAGE_SIZE)
+
+
+            return { toys, maxPageCount }
         })
 }
 function get(toyId) {
@@ -91,7 +99,8 @@ function getDefaultFilter() {
         labels: [],
         inStock: undefined,
         sortType: 'createdAt',
-        sortDir: -1
+        sortDir: -1,
+        pageIdx: 0
     }
 }
 
@@ -101,7 +110,7 @@ function getFilterFromSearchParams(searchParams) {
     const filterBy = {}
 
     for (const field in defaultFilterBy) {
-        if (field === 'price' || field === 'sortDir') {
+        if (field === 'price' || field === 'sortDir' || field === 'pageIdx') {
             filterBy[field] = +searchParams.get(`${field}`) || defaultFilterBy[field]
         } else if (field === 'labels') {
             filterBy[field] = searchParams.getAll('labels') || defaultFilterBy[field]

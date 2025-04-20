@@ -20,11 +20,13 @@ export function ToyIndex() {
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
+    const maxPageCount = useSelector(storeState => storeState.toyModule.maxPageCount)
 
     const [isPopupOpen, setIsPopupOpen] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState({ ...toyService.getFilterFromSearchParams(searchParams) })
+    console.log('Here:', filterBy)
 
 
     useEffectOnUpdate(() => {
@@ -55,6 +57,14 @@ export function ToyIndex() {
         setIsPopupOpen(!isPopupOpen)
     }
 
+    function onSetPage(diff) {
+        setFilterBy(prev => ({ ...prev, pageIdx: filterBy.pageIdx + diff }))
+    }
+
+    function onSetPageNumber(pageNum) {
+        setFilterBy(prev => ({ ...prev, pageIdx: pageNum }))
+    }
+
     return (
         <section className='toy-index'>
             <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
@@ -76,6 +86,24 @@ export function ToyIndex() {
                 </div>
             }
 
+
+            <div className='pagination-btns'>
+                <button disabled={filterBy.pageIdx <= 0} onClick={() => onSetPage(-1)} className="pagination-btn">Prev page</button>
+
+                {maxPageCount >
+                    0 && Array.from({ length: maxPageCount })
+                        .map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => onSetPageNumber(idx)}
+                                className={`pagination-btn ${+filterBy.pageIdx === idx ? "active" : ""}`}
+                            >
+                                {idx + 1}
+                            </button>
+                        ))}
+
+                <button disabled={filterBy.pageIdx >= maxPageCount - 1} onClick={() => onSetPage(1)} className="pagination-btn">Next page</button>
+            </div>
 
 
         </section >

@@ -8,10 +8,14 @@ export const UPDATE_TOY = 'UPDATE_TOY'
 // Loader
 export const SET_LOADER = 'SET_LOADER'
 
+// Loader
+export const SET_MAX_PAGE_COUNT = 'SET_MAX_PAGE_COUNT'
+
 
 const initialState = {
     toys: [],
-    isLoad: false
+    isLoad: false,
+    maxPageCount: 0
 }
 
 export function toyReducer(state = initialState, cmd) {
@@ -36,6 +40,11 @@ export function toyReducer(state = initialState, cmd) {
 
         case SET_LOADER:
             return { ...state, isLoad: cmd.isLoad }
+
+        // MAX PAGE COUNT
+
+        case SET_MAX_PAGE_COUNT:
+            return { ...state, maxPageCount: cmd.maxPageCount }
 
         default: return state
     }
