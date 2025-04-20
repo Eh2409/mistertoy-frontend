@@ -6,7 +6,7 @@ export function AppHeder(props) {
     return (
         <header className='main-header main-layout'>
             <div className='flex justify-between align-center '>
-                <h1>Mister Toys</h1>
+                <NavLink to="/" > <h1>Mister Toys</h1></NavLink>
 
                 <nav className='flex justify-between align-center '>
                     <NavLink to="/" >Home</NavLink>
