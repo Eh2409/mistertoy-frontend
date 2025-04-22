@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import { httpService } from './http.service.js'
 
 export const toyService = {
     query,
@@ -11,30 +11,25 @@ export const toyService = {
     getFilterFromSearchParams
 }
 
-const BASE_URL = '//localhost:3030/api/toy/'
-
-const axios = Axios.create({ withCredentials: true })
-
+const BASE_URL = 'toy/'
 
 function query(filterBy) {
-    console.log('Here:', filterBy)
-    return axios.get(BASE_URL, { params: { ...filterBy } })
-        .then(res => res.data)
+    return httpService.get(BASE_URL, filterBy)
 }
 
 function get(toyId) {
-    return axios.get(BASE_URL + toyId).then(res => res.data)
+    return httpService.get(BASE_URL + toyId)
 }
 
 function remove(toyId) {
-    return axios.delete(BASE_URL + toyId).then(res => res.data)
+    return httpService.delete(BASE_URL + toyId)
 }
 
 function save(toy) {
     const method = toy._id ? 'put' : 'post'
     const toyId = toy._id || ''
 
-    return axios[method](BASE_URL + toyId, toy).then(res => res.data)
+    return httpService[method](BASE_URL + toyId, toy)
         .catch(err => {
             console.log(err)
             throw err
