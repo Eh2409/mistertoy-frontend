@@ -10,6 +10,8 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ name, price, labels, inStock })
     const debounce = useRef(utilService.debounce(onSetFilterBy, 1000))
+    console.log(filterByToEdit);
+
 
 
     useEffectOnUpdate(() => {

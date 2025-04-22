@@ -1,15 +1,17 @@
-import { toyService } from "../services/toyService.js";
+// import { toyService } from '../services/toy.service.js'
+import { toyService } from '../services/toy.service.remote.js'
+
 import { toyActions } from "../store/actions/toy.actions.js"
 import { useConfirmTabClose } from '../hooks/useConfirmTabClose.js'
 
 
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
-import { ToyLabelsPicker } from "../cmps/ToyLabelsPicker.jsx";
-import { Link } from "react-router-dom";
+import { ToyLabelsPicker } from "../cmps/ToyLabelsPicker.jsx"
+import { Link } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Loader } from "../cmps/Loader.jsx";
+import { Loader } from "../cmps/Loader.jsx"
 
 export function ToyEdit() {
     const params = useParams()

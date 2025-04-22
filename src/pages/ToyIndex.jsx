@@ -1,19 +1,21 @@
 
 import { useSelector } from 'react-redux'
 import { useState, useEffect, useRef } from 'react'
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { toyActions } from '../store/actions/toy.actions.js'
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
-import { toyService } from '../services/toyService.js';
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+
+// import { toyService } from '../services/toy.service.js'
+import { toyService } from '../services/toy.service.remote.js'
 
 import { useEffectOnUpdate } from '../hooks/useEffectOnUpdate.js'
 
 import { ToyList } from '../cmps/ToyList.jsx'
-import { ToyFilter } from '../cmps/ToyFilter.jsx';
-import { ToySort } from '../cmps/ToySortBy.jsx';
-import { Loader } from '../cmps/Loader.jsx';
-import { Popup } from '../cmps/Popup.jsx';
+import { ToyFilter } from '../cmps/ToyFilter.jsx'
+import { ToySort } from '../cmps/ToySortBy.jsx'
+import { Loader } from '../cmps/Loader.jsx'
+import { Popup } from '../cmps/Popup.jsx'
 
 
 export function ToyIndex() {
@@ -21,6 +23,7 @@ export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
     const maxPageCount = useSelector(storeState => storeState.toyModule.maxPageCount)
+    console.log('toys:', toys)
 
     const [isPopupOpen, setIsPopupOpen] = useState(false)
 

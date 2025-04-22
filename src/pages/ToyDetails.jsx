@@ -1,4 +1,6 @@
-import { toyService } from "../services/toyService.js"
+// import { toyService } from '../services/toy.service.js'
+import { toyService } from '../services/toy.service.remote.js'
+
 
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"

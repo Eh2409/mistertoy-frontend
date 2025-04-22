@@ -1,5 +1,7 @@
 
-import { toyService } from '../../services/toyService.js'
+// import { toyService } from '../../services/toy.service.js'
+import { toyService } from '../../services/toy.service.remote.js'
+
 import { store } from '../store.js'
 import { SET_TOYS, REMOVE_TOY, ADD_TOY, UPDATE_TOY, SET_LOADER, SET_MAX_PAGE_COUNT } from "../reducers/toy.reducer.js"
 
@@ -36,7 +38,7 @@ function removeToy(toyId) {
 function saveToy(toy) {
     const type = toy._id ? UPDATE_TOY : ADD_TOY
     return toyService.save(toy)
-        .then(() => store.dispatch({ type, toy }))
+        .then(toyToSave => store.dispatch({ type, toy: toyToSave }))
         .catch(err => {
             console.log('toy actions => Cannot save toy:', err)
             throw err
