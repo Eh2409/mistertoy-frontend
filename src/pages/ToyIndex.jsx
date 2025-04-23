@@ -23,7 +23,6 @@ export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
     const maxPageCount = useSelector(storeState => storeState.toyModule.maxPageCount)
-    console.log('toys:', toys)
 
     const [isPopupOpen, setIsPopupOpen] = useState(false)
 

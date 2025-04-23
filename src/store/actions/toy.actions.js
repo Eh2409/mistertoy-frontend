@@ -29,7 +29,10 @@ function loadToys(filterBy) {
 
 function removeToy(toyId) {
     return toyService.remove(toyId)
-        .then(() => store.dispatch({ type: REMOVE_TOY, toyId: toyId }))
+        .then(({ maxPageCount }) => {
+            store.dispatch({ type: REMOVE_TOY, toyId: toyId })
+            store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
+        })
         .catch(err => {
             console.log('toy actions => Cannot remove toy:', err)
             throw err
