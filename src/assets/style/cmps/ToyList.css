@@ -5,10 +5,10 @@
 }
 
 .toy-list li {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 4 span;
+    gap: 0.2em;
 
     border-radius: 0.1em;
     overflow: hidden;
@@ -21,9 +21,12 @@
 
 .toy-list li .toy-btns {
     display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin-block-end: 0.4em;
-    width: 80%;
     gap: 0.4em;
+    padding-inline: 0.5em;
 }
 
 .toy-list li .toy-btns>* {

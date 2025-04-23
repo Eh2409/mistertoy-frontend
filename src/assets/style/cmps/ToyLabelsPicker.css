@@ -17,4 +17,5 @@
     background-color: var(--bgColor1);
     outline: 1px solid black;
     padding: 0.5em;
+    z-index: 3;
 }

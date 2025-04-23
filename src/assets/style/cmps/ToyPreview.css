@@ -1,6 +1,8 @@
 .toy-preview {
     display: grid;
-    gap: 0.4em;
+    grid-template-rows: subgrid;
+    grid-row: 3 span;
+
     text-align: center;
     margin-block-end: 0.4em;
 }
@@ -15,11 +17,12 @@
 .toy-preview img {
     width: 100%;
     aspect-ratio: 1/1;
-    object-fit: contain;
+    object-fit: cover;
+    scale: 1.1;
 
     transition: 200ms ease-in-out;
 
     &:hover {
-        scale: 1.1;
+        scale: 1.3;
     }
 }
