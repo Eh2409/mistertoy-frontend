@@ -11,6 +11,7 @@
 
 /* Components */
 @import "cmps/Home.css";
+@import "cmps/About.css";
 @import "cmps/ToyIndex.css";
 @import "cmps/AppHeader.css";
 @import "cmps/ToyList.css";
@@ -24,3 +25,4 @@
 @import "cmps/Popup.css";
 @import "cmps/Chat.css";
 @import "cmps/ToySort.css";
+@import "cmps/BranchList.css";

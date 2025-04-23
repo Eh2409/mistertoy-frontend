@@ -10,6 +10,7 @@ import { AppHeder } from './cmps/AppHeader.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
+import { About } from './pages/About.jsx'
 
 export function RootCpm() {
     return (
@@ -20,6 +21,7 @@ export function RootCpm() {
                     <main className=' main-layout'>
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="/about" element={<About />} />
                             <Route path="/toy" element={<ToyIndex />} />
                             <Route path="/toy/:toyId" element={<ToyDetails />} />
                             <Route path="/toy/add" element={<ToyEdit />} />
