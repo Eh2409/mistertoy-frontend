@@ -3,11 +3,17 @@
 }
 
 .branches-list>.branch-name {
-    background-color: var(--chatMessBg1);
+    background-color: var(--bgColor4);
     color: white;
     font-weight: bold;
     padding: 1em;
     cursor: pointer;
+
+    &.active,
+    &:hover {
+        filter: brightness(1.2);
+    }
+
 }
 
 .branches-list>.branch-info {
