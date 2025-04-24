@@ -1,3 +1,7 @@
+.branches-list {
+    margin: 0;
+}
+
 .branches-list>.branch-name {
     background-color: var(--chatMessBg1);
     color: white;
