@@ -4,6 +4,7 @@ import { useEffectOnUpdate } from '../hooks/useEffectOnUpdate.js'
 import { ToyLabelsPicker } from "./ToyLabelsPicker.jsx";
 
 import { useState, useEffect, useRef } from 'react'
+import { ToyLabelsPickerUi } from "./ToyLabelsPickerUi.jsx";
 
 export function ToyFilter({ filterBy, onSetFilterBy }) {
     const { name, price, labels, inStock } = filterBy
@@ -73,7 +74,8 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
                     <option value='false'>Out of Stock</option>
                 </select>
 
-                <ToyLabelsPicker labels={filterByToEdit.labels} onSaveLabels={onSaveLabels} />
+                {/* <ToyLabelsPicker labels={filterByToEdit.labels} onSaveLabels={onSaveLabels} /> */}
+                <ToyLabelsPickerUi labels={filterByToEdit.labels} onSaveLabels={onSaveLabels} />
 
             </form>
         </section >
