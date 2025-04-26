@@ -12,9 +12,10 @@ import { useConfirmTabClose } from '../hooks/useConfirmTabClose.js'
 
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
-import { ToyLabelsPicker } from "../cmps/ToyLabelsPicker.jsx"
+// import { ToyLabelsPicker } from "../cmps/ToyLabelsPicker.jsx"
 import { Link } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx"
+import { ToyLabelsPickerUi } from '../cmps/ToyLabelsPickerUi.jsx'
 
 export function ToyEdit() {
     const params = useParams()
@@ -23,13 +24,12 @@ export function ToyEdit() {
     const navigate = useNavigate()
 
     const [toyToEdit, setToyToEdit] = useState({ ...toyService.getEmptyToy() })
-    const [toyEditLabels, setToyEditLabels] = useState(null)
+
 
     const imageUrlRegex = useRef(/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i)
 
     const hasChanges = useRef(false)
     useConfirmTabClose(hasChanges.current)
-
 
     useEffect(() => {
         if (toyId) {
@@ -41,7 +41,6 @@ export function ToyEdit() {
         toyService.get(toyId)
             .then(toy => {
                 setToyToEdit(prev => ({ ...prev, ...toy }))
-                setToyEditLabels(toy.labels)
             })
             .catch(err => {
                 console.log('err:', err)
@@ -49,21 +48,8 @@ export function ToyEdit() {
             })
     }
 
-    // function handleChange({ target }) {
-    //     var { name, value } = target
-    //     if (name === 'price') value = +value
-
-    //     setToyToEdit(prev => ({ ...prev, [name]: value }))
-    //     // hasChanges.current = true
-    // }
-
-    function onSaveLabels(labelsPicked) {
-        setToyToEdit(prev => ({ ...prev, labels: labelsPicked }))
-        hasChanges.current = true
-    }
 
     function onSave(toyToSave) {
-        if (!toyToSave?._id) toyToSave.createdAt = Date.now()
 
         toyToSave.imgUrl = imageUrlRegex.current.test(toyToSave.imgUrl) ? toyToSave.imgUrl : 'src/assets/img/no img.jpg'
 
@@ -86,32 +72,23 @@ export function ToyEdit() {
     })
 
     if (toyId && !toyToEdit._id) return <Loader />
+
+    console.log('Here:', Formik.initialValues)
+
     return (
         <section className="toy-edit">
 
             <h2>{toyToEdit._id ? "Edit Toy" : "Add Toy"}</h2>
 
-            {/* <form onSubmit={onSave}>
-                <label htmlFor="name">Name:</label>
-                <input type="text" name='name' id="name" value={name} onChange={handleChange} required />
-                <label htmlFor="name">Price:</label>
-                <input type="number" name='price' id="price" value={price || ''} onChange={handleChange} required />
-                <label htmlFor="imgUrl">Image Url:</label>
-                <input type="text" name='imgUrl' id="imgUrl" value={imgUrl} onChange={handleChange} />
-                <span>Labels:</span>
-                <ToyLabelsPicker labels={labels} onSaveLabels={onSaveLabels} toyEditLabels={toyEditLabels} />
-                <button className="save-btn">Save</button>
-                <Link to='/toy'><button>Back to list</button></Link>
-            </form> */}
-
-
             <Formik
                 initialValues={toyToEdit}
                 validationSchema={SignupSchema}
-                onSubmit={(values) => onSave({ ...values, labels: toyEditLabels })}
+                onSubmit={(values) => onSave(values)}
             >
-                {({ errors, touched }) => (
-                    <Form>
+
+                {({ errors, touched, values }) => {
+                    console.log('Formik values:', values)
+                    return (< Form >
                         <div className='lable'>Name:</div>
 
                         <Field type="text" name="name" id='name' placeholder='Enter toy name' />
@@ -145,14 +122,25 @@ export function ToyEdit() {
                         <Field name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
                         {errors.imgUrl && touched.imgUrl && <div className='error-msg'>{errors.imgUrl}</div>}
 
+                        <Field name="labels" id='labels'>
+                            {({ field, form }) => (
+                                <Fragment>
+                                    < ToyLabelsPickerUi
+                                        labels={field.value}
+                                        onSaveLabels={(labels) => { form.setFieldValue(field.name, labels) }}
+                                    />
+                                </Fragment>
+                            )}
+                        </Field >
+
                         <div className='form-btns flex justify-between'>
                             <button type='submit' className="save-btn">Save</button>
                             <Link to='/toy'><button>Back to list</button></Link>
                         </div>
-                    </Form>
-                )}
+                    </Form>)
+                }}
             </Formik>
-        </section>
+        </section >
     )
 }
 

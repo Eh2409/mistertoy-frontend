@@ -56,7 +56,7 @@ export function ToyLabelsPickerUi({ labels, onSaveLabels }) {
 
     return (
         <div className="labels-picker">
-            <FormControl sx={{ m: 1, width: 300 }}>
+            <FormControl sx={{ width: 100 + '%' }}>
                 <InputLabel id="demo-multiple-name-label">Labels</InputLabel>
                 <Select
                     labelId="demo-multiple-name-label"
