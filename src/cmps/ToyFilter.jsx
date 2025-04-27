@@ -1,16 +1,26 @@
-import { utilService } from "../services/util.service.js";
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
+
+import { utilService } from "../services/util.service.js"
 import { useEffectOnUpdate } from '../hooks/useEffectOnUpdate.js'
 
-import { ToyLabelsPicker } from "./ToyLabelsPicker.jsx";
+import { ToyLabelsPicker } from "./ToyLabelsPicker.jsx"
+import { ToyLabelsPickerUi } from "./ToyLabelsPickerUi.jsx"
 
 import { useState, useEffect, useRef } from 'react'
-import { ToyLabelsPickerUi } from "./ToyLabelsPickerUi.jsx";
 
 export function ToyFilter({ filterBy, onSetFilterBy }) {
     const { name, price, labels, inStock } = filterBy
 
     const [filterByToEdit, setFilterByToEdit] = useState({ name, price, labels, inStock })
     const debounce = useRef(utilService.debounce(onSetFilterBy, 1000))
+    console.log('Here:', filterByToEdit)
+    console.log('Here:', filterByToEdit.inStock === undefined)
 
 
 
@@ -31,7 +41,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
                 case 'false':
                     value = false
                     break;
-                case '':
+                case 'all':
                     value = undefined
                     break;
             }
@@ -49,35 +59,58 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
         <section className="toy-filter">
             <h2>Toy Filter</h2>
             <form >
-                <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="By Name"
-                    value={filterByToEdit.name}
-                    onChange={handleChange} />
-                <input
-                    type="number"
-                    name="price"
-                    id="price"
-                    placeholder="By Min Price"
-                    value={filterByToEdit.price || ''}
-                    onChange={handleChange} />
+                <Box sx={{ minWidth: 120 }}>
 
-                <select
-                    name="inStock"
-                    id="inStock"
-                    onChange={handleChange}
-                    value={filterByToEdit.inStock === undefined ? '' : String(filterByToEdit.inStock)}>
-                    <option value=''>All</option>
-                    <option value='true'>In Stock</option>
-                    <option value='false'>Out of Stock</option>
-                </select>
+                    <TextField
+                        id="name"
+                        label="By Name"
+                        variant="outlined"
+                        type="text"
+                        name="name"
+                        value={filterByToEdit.name}
+                        onChange={handleChange}
+                    />
+                </Box>
 
-                {/* <ToyLabelsPicker labels={filterByToEdit.labels} onSaveLabels={onSaveLabels} /> */}
+                <Box>
+                    <TextField
+                        id="price"
+                        label="By Min Price"
+                        variant="outlined"
+                        type="number"
+                        name="price"
+                        value={filterByToEdit.price || ''}
+                        onChange={handleChange}
+                    />
+                </Box>
+
+                <Box>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">By Stock</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="inStock"
+                            name="inStock"
+                            value={filterByToEdit.inStock === undefined ? 'all' : String(filterByToEdit.inStock)}
+                            label="inStock"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={"all"}>All</MenuItem>
+                            <MenuItem value={"true"}>In Stock</MenuItem>
+                            <MenuItem value={"false"}>Out of Stock</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+
+
                 <ToyLabelsPickerUi labels={filterByToEdit.labels} onSaveLabels={onSaveLabels} />
 
             </form>
         </section >
     )
 }
+
+
+
+
+
