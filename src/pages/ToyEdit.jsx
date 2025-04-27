@@ -2,6 +2,8 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import { useState, useEffect, useRef, Fragment } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import TextField from '@mui/material/TextField';
+
 
 // import { toyService } from '../services/toy.service.js'
 import { toyService } from '../services/toy.service.remote.js'
@@ -71,9 +73,16 @@ export function ToyEdit() {
         imgUrl: Yup.string().matches(imageUrlRegex.current, 'Must be a valid image URL')
     })
 
-    if (toyId && !toyToEdit._id) return <Loader />
+    function customInput(props) {
+        // console.log('Here:', props)
+        return <TextField
+            {...props}
+            label={props.name.charAt(0).toUpperCase() + props.name.slice(1)}
+            value={props.value}
+        />
+    }
 
-    console.log('Here:', Formik.initialValues)
+    if (toyId && !toyToEdit._id) return <Loader />
 
     return (
         <section className="toy-edit">
@@ -89,37 +98,16 @@ export function ToyEdit() {
                 {({ errors, touched, values }) => {
                     console.log('Formik values:', values)
                     return (< Form >
-                        <div className='lable'>Name:</div>
 
-                        <Field type="text" name="name" id='name' placeholder='Enter toy name' />
+                        <Field as={customInput} type="text" name="name" id='name' placeholder='Enter toy name' />
                         {errors.name && touched.name && <div className='error-msg'>{errors.name}</div>}
 
-                        <div className='lable'>Price: </div>
-                        <Field type="number" name="price" id='price' placeholder='Enter toy price' />
+
+                        <Field as={customInput} type="number" name="price" id='price' placeholder='Enter toy price' />
                         {errors.price && touched.price && <div className='error-msg'>{errors.price}</div>}
 
-                        {/* <Field name='price' >
-                            {({ field, form }) => (
-                                <Fragment>
-                                    <input
-                                        type="number"
-                                        name='price'
-                                        id='price'
-                                        {...field}
-                                        value={field.value || ''}
-                                        placeholder="Enter toy price"
-                                        onChange={e => form.setFieldValue("price", e.target.value)}
-                                    />
-                                    {form.errors.price && form.touched.price && (
-                                        <div className="error-msg">{form.errors.price}</div>
-                                    )}
-                                </Fragment>
-                            )}
 
-                        </Field> */}
-
-                        <div className='lable'>Image URL: </div>
-                        <Field name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
+                        <Field as={customInput} name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
                         {errors.imgUrl && touched.imgUrl && <div className='error-msg'>{errors.imgUrl}</div>}
 
                         <Field name="labels" id='labels'>

@@ -44,7 +44,7 @@ function getEmptyToy() {
     return {
         name: '',
         imgUrl: '',
-        price: 0,
+        price: '',
         labels: [],
         createdAt: 0,
         inStock: true,
