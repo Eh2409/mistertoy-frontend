@@ -17,6 +17,7 @@ import { ToySort } from '../cmps/ToySortBy.jsx'
 import { Loader } from '../cmps/Loader.jsx'
 import { Popup } from '../cmps/Popup.jsx'
 
+import chatImg from '../assets/img/chat.svg'
 
 export function ToyIndex() {
 
@@ -83,7 +84,7 @@ export function ToyIndex() {
             {isPopupOpen
                 ? <Popup onTogglePopup={onTogglePopup} />
                 : <div className='popup-btn' onClick={onTogglePopup}>
-                    <img src="/src/assets/img/chat.svg" alt="" />
+                    <img src={chatImg} alt="" />
                 </div>
             }
 

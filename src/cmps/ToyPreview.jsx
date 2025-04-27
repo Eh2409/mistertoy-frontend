@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom"
-
+ 
 export function ToyPreview({ toy }) {
     const navigate = useNavigate()
 
