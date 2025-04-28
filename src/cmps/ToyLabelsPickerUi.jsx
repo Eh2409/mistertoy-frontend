@@ -28,7 +28,8 @@ function getStyles(name, personName, theme) {
     }
 }
 
-export function ToyLabelsPickerUi({ labels, onSaveLabels }) {
+export function ToyLabelsPickerUi({ name, array, labels, onSaveLabels }) {
+    console.log('Here:', labels)
     const theme = useTheme()
     const [labelsPicked, setLabelsPicked] = useState([...labels])
     const [isMenuClose, setIsMenuClose] = useState(true)
@@ -57,7 +58,7 @@ export function ToyLabelsPickerUi({ labels, onSaveLabels }) {
     return (
         <div className="labels-picker">
             <FormControl sx={{ width: 100 + '%' }}>
-                <InputLabel id="demo-multiple-name-label">Labels</InputLabel>
+                <InputLabel id="demo-multiple-name-label">{name}</InputLabel>
                 <Select
                     labelId="demo-multiple-name-label"
                     id="demo-multiple-name"
@@ -69,7 +70,7 @@ export function ToyLabelsPickerUi({ labels, onSaveLabels }) {
                     input={<OutlinedInput label="Name" />}
                     MenuProps={MenuProps}
                 >
-                    {toyService.getLabels().map((label) => (
+                    {array.map((label) => (
                         <MenuItem
                             key={label}
                             value={label}

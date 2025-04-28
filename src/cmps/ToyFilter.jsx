@@ -13,11 +13,12 @@ import { ToyLabelsPicker } from "./ToyLabelsPicker.jsx"
 import { ToyLabelsPickerUi } from "./ToyLabelsPickerUi.jsx"
 
 import { useState, useEffect, useRef } from 'react'
+import { toyService } from '../services/toy.service.remote.js'
 
 export function ToyFilter({ filterBy, onSetFilterBy }) {
-    const { name, price, labels, inStock } = filterBy
+    const { name, price, labels, inStock, manufacturer, type, brand } = filterBy
 
-    const [filterByToEdit, setFilterByToEdit] = useState({ name, price, labels, inStock })
+    const [filterByToEdit, setFilterByToEdit] = useState({ name, price, labels, inStock, manufacturer, type, brand })
     const debounce = useRef(utilService.debounce(onSetFilterBy, 1000))
     console.log('Here:', filterByToEdit)
     console.log('Here:', filterByToEdit.inStock === undefined)
@@ -50,8 +51,8 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
         setFilterByToEdit(prev => ({ ...prev, [name]: value }))
     }
 
-    function onSaveLabels(labelsPicked) {
-        setFilterByToEdit(prev => ({ ...prev, labels: labelsPicked }))
+    function onSaveLabels(labelsPicked, name) {
+        setFilterByToEdit(prev => ({ ...prev, [name]: labelsPicked }))
     }
 
 
@@ -103,7 +104,28 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
                 </Box>
 
 
-                <ToyLabelsPickerUi labels={filterByToEdit.labels} onSaveLabels={onSaveLabels} />
+
+                <ToyLabelsPickerUi
+                    name='Brands'
+                    array={toyService.getBrands()}
+                    labels={filterByToEdit.brand}
+                    onSaveLabels={(labels) => onSaveLabels(labels, 'brand')}
+                />
+
+                <ToyLabelsPickerUi
+                    name='Types'
+                    array={toyService.getToyTypes()}
+                    labels={filterByToEdit.type}
+                    onSaveLabels={(labels) => onSaveLabels(labels, 'type')}
+                />
+
+                <ToyLabelsPickerUi
+                    name='Manufacturers'
+                    array={toyService.getManufacturers()}
+                    labels={filterByToEdit.manufacturer}
+                    onSaveLabels={(labels) => onSaveLabels(labels, 'manufacturer')}
+                />
+
 
             </form>
         </section >

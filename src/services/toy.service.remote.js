@@ -45,12 +45,11 @@ function getLabels() {
 
 function getBrands() {
     return [
-        'Dragon Ball ',
+        'Dragon Ball',
         'One Piece',
         'My Hero Academia',
         'Naruto',
         'Marvel',
-        'Naruto Shippuden',
         'Pokemon',
         'other'
     ]
@@ -58,7 +57,7 @@ function getBrands() {
 function getToyTypes() {
     return [
         'Action Figure',
-        'S.H. Figuarts',
+        'S.H.Figuarts',
         'Statue',
         'Building Set',
         'Nanoblock',
@@ -99,9 +98,9 @@ function getDefaultFilter() {
     return {
         name: '',
         price: 0,
-        manufacturer: '',
+        manufacturer: [],
         type: [],
-        brand: '',
+        brand: [],
         inStock: undefined,
         sortType: 'createdAt',
         sortDir: -1,
@@ -117,8 +116,8 @@ function getFilterFromSearchParams(searchParams) {
     for (const field in defaultFilterBy) {
         if (field === 'price' || field === 'sortDir' || field === 'pageIdx') {
             filterBy[field] = +searchParams.get(`${field}`) || defaultFilterBy[field]
-        } else if (field === 'labels') {
-            filterBy[field] = searchParams.getAll('labels') || defaultFilterBy[field]
+        } else if (field === 'manufacturer' || field === 'type' || field === 'brand') {
+            filterBy[field] = searchParams.getAll(field) || defaultFilterBy[field]
         } else if (field === 'inStock') {
             var value = searchParams.get('inStock') || defaultFilterBy[field]
             switch (value) {

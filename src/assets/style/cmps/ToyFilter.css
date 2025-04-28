@@ -31,7 +31,7 @@
 
 
     .toy-filter>form>.labels-picker {
-        grid-area: 2/2;
+        grid-row: 2;
     }
 
 
