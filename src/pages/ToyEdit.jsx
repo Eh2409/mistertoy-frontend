@@ -18,6 +18,7 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { Link } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx"
 import { ToyLabelsPickerUi } from '../cmps/ToyLabelsPickerUi.jsx'
+import { ToySelectUi } from '../cmps/ToySelectUi.jsx';
 
 export function ToyEdit() {
     const params = useParams()
@@ -73,11 +74,23 @@ export function ToyEdit() {
         imgUrl: Yup.string().matches(imageUrlRegex.current, 'Must be a valid image URL')
     })
 
+    function setLabelName(name) {
+        switch (name) {
+            case 'imgUrl':
+                return 'Image URL'
+            case 'releaseYear':
+                return 'Release year'
+            default:
+                break;
+        }
+
+        return name.charAt(0).toUpperCase() + name.slice(1)
+    }
+
     function customInput(props) {
-        // console.log('Here:', props)
         return <TextField
             {...props}
-            label={props.name.charAt(0).toUpperCase() + props.name.slice(1)}
+            label={setLabelName(props.name)}
             value={props.value}
         />
     }
@@ -106,16 +119,49 @@ export function ToyEdit() {
                         <Field as={customInput} type="number" name="price" id='price' placeholder='Enter toy price' />
                         {errors.price && touched.price && <div className='error-msg'>{errors.price}</div>}
 
+                        <Field as={customInput} type="text" name="description" id='description' placeholder='Enter toy description' />
+                        {/* {errors.description && touched.description && <div className='error-msg'>{errors.description}</div>} */}
+
+                        <Field as={customInput} type="number" name="releaseYear" id='releaseYear' placeholder='Enter toy release year' />
+                        {/* {errors.description && touched.description && <div className='error-msg'>{errors.description}</div>} */}
 
                         <Field as={customInput} name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
                         {errors.imgUrl && touched.imgUrl && <div className='error-msg'>{errors.imgUrl}</div>}
 
-                        <Field name="labels" id='labels'>
+                        <Field name="manufacturer" id='manufacturer'>
+                            {({ field, form }) => (
+                                <Fragment>
+                                    < ToySelectUi
+                                        name='Manufacturers'
+                                        options={toyService.getManufacturers()}
+                                        select={field.value}
+                                        onSaveSelect={(labels) => { form.setFieldValue(field.name, labels) }}
+                                    />
+                                </Fragment>
+                            )}
+                        </Field >
+
+                        <Field name="type" id='type'>
                             {({ field, form }) => (
                                 <Fragment>
                                     < ToyLabelsPickerUi
+                                        name='Types'
+                                        array={toyService.getToyTypes()}
                                         labels={field.value}
                                         onSaveLabels={(labels) => { form.setFieldValue(field.name, labels) }}
+                                    />
+                                </Fragment>
+                            )}
+                        </Field >
+
+                        <Field name="brand" id='brand'>
+                            {({ field, form }) => (
+                                <Fragment>
+                                    < ToySelectUi
+                                        name='Brands'
+                                        options={toyService.getBrands()}
+                                        select={field.value}
+                                        onSaveSelect={(labels) => { form.setFieldValue(field.name, labels) }}
                                     />
                                 </Fragment>
                             )}

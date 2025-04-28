@@ -6,7 +6,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { toyService } from '../services/toy.service.remote.js';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

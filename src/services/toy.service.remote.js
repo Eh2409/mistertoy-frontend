@@ -89,7 +89,11 @@ function getEmptyToy() {
         name: '',
         imgUrl: '',
         price: '',
-        labels: [],
+        manufacturer: '',
+        type: [],
+        brand: '',
+        releaseYear: '',
+        description: '',
         createdAt: 0,
         inStock: true,
     }
