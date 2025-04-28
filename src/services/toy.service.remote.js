@@ -99,7 +99,9 @@ function getDefaultFilter() {
     return {
         name: '',
         price: 0,
-        labels: [],
+        manufacturer: '',
+        type: [],
+        brand: '',
         inStock: undefined,
         sortType: 'createdAt',
         sortDir: -1,
