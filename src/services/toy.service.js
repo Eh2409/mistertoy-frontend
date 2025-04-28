@@ -162,7 +162,6 @@ function _createToy(txt, label) {
     return toy
 }
 
-
 // const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
 //     'Outdoor', 'Battery Powered']
 // const toy = {
