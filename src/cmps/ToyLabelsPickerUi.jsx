@@ -27,7 +27,7 @@ function getStyles(name, personName, theme) {
     }
 }
 
-export function ToyLabelsPickerUi({ name, array, labels, onSaveLabels }) {
+export function ToyLabelsPickerUi({ name, options, labels, onSaveLabels }) {
     console.log('Here:', labels)
     const theme = useTheme()
     const [labelsPicked, setLabelsPicked] = useState([...labels])
@@ -66,16 +66,16 @@ export function ToyLabelsPickerUi({ name, array, labels, onSaveLabels }) {
                     onChange={handleChange}
                     onClose={() => toggleIsMenuClose(true)}
                     onOpen={() => toggleIsMenuClose(false)}
-                    input={<OutlinedInput label="Name" />}
+                    input={<OutlinedInput label={name} />}
                     MenuProps={MenuProps}
                 >
-                    {array.map((label) => (
+                    {options.map((option) => (
                         <MenuItem
-                            key={label}
-                            value={label}
-                            style={getStyles(label, labelsPicked, theme)}
+                            key={option}
+                            value={option}
+                            style={getStyles(option, labelsPicked, theme)}
                         >
-                            {label}
+                            {option}
                         </MenuItem>
                     ))}
                 </Select>

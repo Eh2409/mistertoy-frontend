@@ -146,7 +146,7 @@ export function ToyEdit() {
                                 <Fragment>
                                     < ToyLabelsPickerUi
                                         name='Types'
-                                        array={toyService.getToyTypes()}
+                                        options={toyService.getToyTypes()}
                                         labels={field.value}
                                         onSaveLabels={(labels) => { form.setFieldValue(field.name, labels) }}
                                     />

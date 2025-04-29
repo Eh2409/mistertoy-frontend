@@ -107,21 +107,21 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
 
                 <ToyLabelsPickerUi
                     name='Brands'
-                    array={toyService.getBrands()}
+                    options={toyService.getBrands()}
                     labels={filterByToEdit.brand}
                     onSaveLabels={(labels) => onSaveLabels(labels, 'brand')}
                 />
 
                 <ToyLabelsPickerUi
                     name='Types'
-                    array={toyService.getToyTypes()}
+                    options={toyService.getToyTypes()}
                     labels={filterByToEdit.type}
                     onSaveLabels={(labels) => onSaveLabels(labels, 'type')}
                 />
 
                 <ToyLabelsPickerUi
                     name='Manufacturers'
-                    array={toyService.getManufacturers()}
+                    options={toyService.getManufacturers()}
                     labels={filterByToEdit.manufacturer}
                     onSaveLabels={(labels) => onSaveLabels(labels, 'manufacturer')}
                 />
