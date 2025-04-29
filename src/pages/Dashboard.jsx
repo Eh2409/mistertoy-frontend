@@ -1,37 +1,59 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { useState, useEffect, useRef } from 'react'
+import { toyService } from '../services/toy.service.remote.js'
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { DoughnutChart } from '../cmps/charts/DoughnutChart.jsx'
+import { BarChart } from '../cmps/charts/BarChart.jsx'
+import { Loader } from '../cmps/Loader.jsx'
+
+
+
 
 export function Dashboard() {
-    const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-            {
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
-                borderWidth: 1,
-            }
-        ]
+
+    const [chartsData, setChartsData] = useState(null)
+    console.log('Here:', chartsData)
+
+    useEffect(() => {
+        loadChartsData()
+    }, [])
+
+    function loadChartsData() {
+        toyService.getCahrtsData()
+            .then(data => setChartsData(data))
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Cannot load charts data')
+            })
     }
 
-    return (<Pie data={data} />)
+    if (!chartsData) return <Loader />
+    const { byBrands, byManufacturers, byTypes, byReleaseYear } = chartsData
+
+    return (
+        <section className='dashboard'>
+            <h2>Dashboard</h2>
+            <ul className='charts-list'>
+                <li>
+                    <h3>Toys By Brands</h3>
+                    <DoughnutChart labelData={byBrands} />
+                </li>
+                <li>
+                    <h3>Toys By Manufacturers</h3>
+                    <DoughnutChart labelData={byManufacturers} />
+                </li>
+                <li>
+                    <h3>Toys By Types</h3>
+                    <DoughnutChart labelData={byTypes} />
+                </li>
+                <li>
+                    <h3>Toys By Release Year</h3>
+                    <div className='chart-bar'>
+                        <BarChart labelData={byReleaseYear} />
+                    </div>
+                </li>
+            </ul>
+        </section>
+    )
 }
 

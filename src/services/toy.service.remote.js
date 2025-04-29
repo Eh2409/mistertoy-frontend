@@ -12,6 +12,7 @@ export const toyService = {
     getBrands,
     getToyTypes,
     getManufacturers,
+    getCahrtsData
 }
 
 const BASE_URL = 'toy/'
@@ -37,6 +38,10 @@ function save(toy) {
             console.log(err)
             throw err
         })
+}
+
+function getCahrtsData() {
+    return httpService.get(BASE_URL + 'charts')
 }
 
 function getLabels() {
