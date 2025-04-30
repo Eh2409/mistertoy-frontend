@@ -1,0 +1,26 @@
+.popup {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+
+    background-color: var(--bgColor2);
+    border-radius: 1em;
+
+    width: 300px;
+    height: 400px;
+
+    overflow: hidden;
+
+    outline: 1px solid rgba(0, 0, 0, .25);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, .25);
+}
+
+.popup>header {
+    padding: 0.5em;
+    height: max-content;
+}
+
+.popup>main {
+    height: 90%;
+    width: 100%;
+}
