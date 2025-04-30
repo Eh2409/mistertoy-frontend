@@ -5,20 +5,20 @@
     margin: auto;
     width: 40vw;
     aspect-ratio: 1/1;
-}
 
-.loader-wrapper>.loader {
-    width: 150px;
-    height: 150px;
-    --c: radial-gradient(farthest-side, #000000 92%, #0000);
-    background:
-        var(--c) 50% 0,
-        var(--c) 50% 100%,
-        var(--c) 100% 50%,
-        var(--c) 0 50%;
-    background-size: 50px 50px;
-    background-repeat: no-repeat;
-    animation: s7 1s infinite;
+    .loader {
+        width: 150px;
+        height: 150px;
+        --c: radial-gradient(farthest-side, #000000 92%, #0000);
+        background:
+            var(--c) 50% 0,
+            var(--c) 50% 100%,
+            var(--c) 100% 50%,
+            var(--c) 0 50%;
+        background-size: 50px 50px;
+        background-repeat: no-repeat;
+        animation: s7 1s infinite;
+    }
 }
 
 @keyframes s7 {

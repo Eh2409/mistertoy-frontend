@@ -28,20 +28,22 @@ button {
         background-color: red;
         color: white;
     }
-}
 
-.pagination-btn.active {
-    background-color: red;
-    color: white;
-}
+    &.active {
+        background-color: red;
+        color: white;
+    }
 
-
-.pagination-btn:disabled {
-    cursor: auto;
-    color: rgb(175, 175, 175);
-
-    &:hover {
-        background-color: var(--bgColor1);
+    &:disabled {
+        cursor: auto;
         color: rgb(175, 175, 175);
+    
+        &:hover {
+            background-color: var(--bgColor1);
+            color: rgb(175, 175, 175);
+        }
     }
 }
+
+
+

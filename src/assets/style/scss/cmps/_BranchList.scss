@@ -1,39 +1,38 @@
 .branches-list {
     margin: 0;
-}
 
-.branches-list>.branch-name {
-    background-color: var(--bgColor4);
-    color: white;
-    font-weight: bold;
-    padding: 1em;
-    cursor: pointer;
-
-    &.active,
-    &:hover {
-        filter: brightness(1.2);
+    .branch-name {
+        background-color: var(--bgColor4);
+        color: white;
+        font-weight: bold;
+        padding: 1em;
+        cursor: pointer;
+    
+        &.active,
+        &:hover {
+            filter: brightness(1.2);
+        }
     }
 
-}
+    .branch-info {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms ease-in-out;
+        
+        &.active{
+            grid-template-rows: 1fr;
+        }
 
-.branches-list>.branch-info {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 300ms ease-in-out;
-}
+        .info-content {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            background-color: rgb(255, 255, 255);
 
-.branches-list>.branch-info>.info-content {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    background-color: rgb(255, 255, 255);
-}
-
-.branches-list>.branch-info>.info-content>div {
-    padding: 0.5em;
-}
-
-.branches-list>.branch-info.active {
-    grid-template-rows: 1fr;
+            div {
+                padding: 0.5em;
+            }
+        }
+    }
 }
