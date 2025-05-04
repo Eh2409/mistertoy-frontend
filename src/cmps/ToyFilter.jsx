@@ -68,6 +68,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
                         variant="outlined"
                         type="text"
                         name="name"
+                        className='text-field'
                         value={filterByToEdit.name}
                         onChange={handleChange}
                     />
@@ -80,6 +81,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
                         variant="outlined"
                         type="number"
                         name="price"
+                        className='text-field'
                         value={filterByToEdit.price || ''}
                         onChange={handleChange}
                     />
