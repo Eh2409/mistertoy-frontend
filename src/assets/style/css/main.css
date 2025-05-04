@@ -130,7 +130,7 @@ button {
   transition: 200ms;
 }
 button:hover {
-  filter: brightness(1.05);
+  background-color: rgb(220.2635135135, 239.2702702703, 241.2364864865);
 }
 
 .pagination-btn {
@@ -140,7 +140,7 @@ button:hover {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
 .pagination-btn:hover {
-  background-color: red;
+  background-color: rgb(178.5, 178.5, 178.5);
   color: white;
 }
 .pagination-btn.active {

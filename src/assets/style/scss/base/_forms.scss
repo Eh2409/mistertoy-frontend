@@ -13,7 +13,8 @@ button {
 
 
     &:hover {
-        filter: brightness(1.05);
+        background-color: lighten($btnBgColor1, 5%);
+
     }
 }
 
@@ -24,7 +25,7 @@ button {
     box-shadow: 0px 3px 6px rgba(0, 0, 0, .25);
 
     &:hover {
-        background-color: red;
+        background-color: darken($bgColor1, 30%);
         color: white;
     }
 
