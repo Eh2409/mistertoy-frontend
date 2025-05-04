@@ -1,14 +1,4 @@
 /* Setup */
-:root {
-  --bgColor1: white;
-  --bgColor2: #f0f2f6;
-  --bgColor3: #CAE7EA;
-  --bgColor4: #2c7fbb;
-  --btnBgColor1: #CAE7EA;
-  --chatMessBg1: #c3c5fa;
-  --chatMessBg2: #c3edfa;
-}
-
 /* Base */
 *,
 *::before,
@@ -85,7 +75,7 @@ html {
 }
 
 body {
-  background-color: var(--bgColor2);
+  background-color: #f0f2f6;
   font-size: 1rem;
 }
 
@@ -129,7 +119,7 @@ body {
 }
 
 button {
-  background-color: var(--btnBgColor1);
+  background-color: #CAE7EA;
   outline: none;
   border: none;
   padding: 0.4em;
@@ -144,13 +134,12 @@ button:hover {
 }
 
 .pagination-btn {
-  background-color: var(--bgColor1);
+  background-color: white;
   border-radius: 100vh;
   font-size: 1em;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
 .pagination-btn:hover {
-  filter: brightness(1);
   background-color: red;
   color: white;
 }
@@ -163,7 +152,7 @@ button:hover {
   color: rgb(175, 175, 175);
 }
 .pagination-btn:disabled:hover {
-  background-color: var(--bgColor1);
+  background-color: white;
   color: rgb(175, 175, 175);
 }
 
@@ -203,7 +192,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--bgColor1);
+  background-color: white;
   border-radius: 1em;
   outline: 1px solid black;
   box-shadow: 1px 1px 1px black;
@@ -212,7 +201,7 @@ button:hover {
   cursor: pointer;
 }
 .toy-index .popup-btn:hover {
-  background-color: var(--bgColor3);
+  background-color: #CAE7EA;
   filter: brightness(1.1);
 }
 .toy-index .popup-btn img {
@@ -238,7 +227,7 @@ button:hover {
   gap: 0.2em;
   border-radius: 0.1em;
   overflow: hidden;
-  background-color: var(--bgColor1);
+  background-color: white;
   outline: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
@@ -308,7 +297,7 @@ button:hover {
   padding: 1em;
   border-radius: 0.1em;
   overflow: hidden;
-  background-color: var(--bgColor1);
+  background-color: white;
   outline: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
@@ -347,7 +336,7 @@ button:hover {
   gap: 0.5em;
   padding: 1em;
   border-radius: 0.1em;
-  background-color: var(--bgColor1);
+  background-color: white;
   outline: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
@@ -371,7 +360,7 @@ button:hover {
   top: 10%;
   left: 0;
   right: 0;
-  background-color: var(--bgColor1);
+  background-color: white;
   outline: 1px solid black;
   padding: 0.5em;
   z-index: 3;
@@ -381,7 +370,7 @@ button:hover {
   padding: 0.5em;
   margin-block-end: 1em;
   border-radius: 0.1em;
-  background-color: var(--bgColor1);
+  background-color: white;
   outline: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
 }
@@ -431,7 +420,7 @@ button:hover {
   position: fixed;
   bottom: 1em;
   left: 1em;
-  background-color: var(--bgColor2);
+  background-color: #f0f2f6;
   border-radius: 1em;
   width: 300px;
   height: 400px;
@@ -465,7 +454,7 @@ button:hover {
   word-break: break-word;
   margin: 0;
   margin-block-end: 1em;
-  background-color: var(--bgColor1);
+  background-color: white;
 }
 
 .chat > .body > li {
@@ -490,13 +479,13 @@ button:hover {
 
 .chat > .body > li.user {
   margin-inline-start: 2em;
-  background-color: var(--chatMessBg1);
+  background-color: #c3c5fa;
   border-radius: 1em 1em 0 1em;
 }
 
 .chat > .body > li.chat-agent {
   margin-inline-end: 2em;
-  background-color: var(--chatMessBg2);
+  background-color: #c3edfa;
   border-radius: 1em 1em 1em 0;
 }
 
@@ -521,7 +510,7 @@ button:hover {
   margin: 0;
 }
 .branches-list .branch-name {
-  background-color: var(--bgColor4);
+  background-color: #2c7fbb;
   color: white;
   font-weight: bold;
   padding: 1em;
@@ -577,7 +566,7 @@ button:hover {
 .dashboard {
   padding: 1em;
   border-radius: 0.1em;
-  background-color: var(--bgColor1);
+  background-color: white;
   outline: 1px solid rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25);
   margin-block-end: 1em;

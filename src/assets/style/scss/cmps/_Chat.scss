@@ -13,7 +13,7 @@
     word-break: break-word;
     margin: 0;
     margin-block-end: 1em;
-    background-color: var(--bgColor1);
+    background-color: $bgColor1;
 
 }
 
@@ -40,13 +40,13 @@
 
 .chat>.body>li.user {
     margin-inline-start: 2em;
-    background-color: var(--chatMessBg1);
+    background-color: $chatMessBg1;
     border-radius: 1em 1em 0 1em;
 }
 
 .chat>.body>li.chat-agent {
     margin-inline-end: 2em;
-    background-color: var(--chatMessBg2);
+    background-color: $chatMessBg2;
     border-radius: 1em 1em 1em 0;
 }
 

@@ -2,12 +2,12 @@
     margin: 0;
 
     .branch-name {
-        background-color: var(--bgColor4);
+        background-color: $bgColor4;
         color: white;
         font-weight: bold;
         padding: 1em;
         cursor: pointer;
-    
+
         &.active,
         &:hover {
             filter: brightness(1.2);
@@ -18,8 +18,8 @@
         display: grid;
         grid-template-rows: 0fr;
         transition: grid-template-rows 300ms ease-in-out;
-        
-        &.active{
+
+        &.active {
             grid-template-rows: 1fr;
         }
 
