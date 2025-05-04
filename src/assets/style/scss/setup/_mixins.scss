@@ -1,0 +1,23 @@
+// layout mixins
+@mixin for-tablet-layout {
+    @media (min-width: $tablet-padded) {
+        @content;
+    }
+}
+
+// @mixin for-desktop-layout {
+//     @media (min-width: $desktop-padded) {
+//         @content;
+//     }
+// }
+
+
+// @mixin gtc($size) {
+//     grid-template-columns:
+//         minmax($layout-padding, 1fr) minmax(auto, $size) minmax($layout-padding, 1fr);
+// }
+
+@mixin gtc($size) {
+    grid-template-columns:
+        $layout-padding minmax(auto, 1fr) $layout-padding;
+}

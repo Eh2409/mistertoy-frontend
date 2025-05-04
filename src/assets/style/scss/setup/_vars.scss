@@ -1,3 +1,5 @@
+//  colors
+
 $bgColor1: white;
 $bgColor2: #f0f2f6;
 $bgColor3: #CAE7EA;
@@ -7,3 +9,13 @@ $btnBgColor1: #CAE7EA;
 
 $chatMessBg1: #c3c5fa;
 $chatMessBg2: #c3edfa;
+
+// breakpoints
+
+$layout-padding: 20px;
+
+$tablet-breakpoint :710px;
+// $desktop-breakpoint :1200px;
+
+$tablet-padded: $tablet-breakpoint + 2 * $layout-padding;
+// $desktop-padded: $desktop-breakpoint + (2 * $layout-padding);

@@ -1,12 +1,20 @@
 .main-layout {
     display: grid;
-    grid-template-columns: 1.6rem 1fr 1.6rem;
+    grid-template-columns: $layout-padding 1fr $layout-padding;
 
-    &.full {
-        grid-column: 1/-1;
+    >* {
+        grid-column: 2;
+
+        &.full {
+            grid-column: 1 / -1;
+        }
     }
 
-    &>*{
-        grid-column: 2; 
+    @include for-tablet-layout {
+        @include gtc($tablet-breakpoint);
     }
+
+    // @include for-desktop-layout {
+    //     @include gtc($desktop-breakpoint);
+    // }
 }
