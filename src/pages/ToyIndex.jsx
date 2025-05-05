@@ -18,6 +18,7 @@ import { Loader } from '../cmps/Loader.jsx'
 import { Popup } from '../cmps/Popup.jsx'
 
 import chatImg from '../assets/img/chat.svg'
+import { Pagination } from '../cmps/pagination.jsx'
 
 export function ToyIndex() {
 
@@ -88,24 +89,7 @@ export function ToyIndex() {
                 </div>
             }
 
-
-            <div className='pagination-btns'>
-                <button disabled={filterBy.pageIdx <= 0} onClick={() => onSetPage(-1)} className="pagination-btn">Prev page</button>
-
-                {maxPageCount >
-                    0 && Array.from({ length: maxPageCount })
-                        .map((_, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => onSetPageNumber(idx)}
-                                className={`pagination-btn ${+filterBy.pageIdx === idx ? "active" : ""}`}
-                            >
-                                {idx + 1}
-                            </button>
-                        ))}
-
-                <button disabled={filterBy.pageIdx >= maxPageCount - 1} onClick={() => onSetPage(1)} className="pagination-btn">Next page</button>
-            </div>
+            <Pagination filterBy={filterBy} maxPageCount={maxPageCount} onSetPage={onSetPage} onSetPageNumber={onSetPageNumber} />
 
 
         </section >
