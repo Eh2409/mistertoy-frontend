@@ -23,7 +23,9 @@ function loadToys(filterBy) {
             throw err
         })
         .finally(() => {
-            store.dispatch({ type: SET_LOADER, isLoad: false })
+            setTimeout(() => {
+                store.dispatch({ type: SET_LOADER, isLoad: false })
+            }, 350)
         })
 }
 
