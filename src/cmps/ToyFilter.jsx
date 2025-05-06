@@ -15,14 +15,11 @@ import { ToyLabelsPickerUi } from "./ToyLabelsPickerUi.jsx"
 import { useState, useEffect, useRef } from 'react'
 import { toyService } from '../services/toy.service.remote.js'
 
-export function ToyFilter({ filterBy, onSetFilterBy }) {
+export function ToyFilter({ filterBy, onSetFilterBy, toysLabels }) {
     const { name, price, labels, inStock, manufacturer, type, brand } = filterBy
 
     const [filterByToEdit, setFilterByToEdit] = useState({ name, price, labels, inStock, manufacturer, type, brand })
     const debounce = useRef(utilService.debounce(onSetFilterBy, 1000))
-    console.log('Here:', filterByToEdit)
-    console.log('Here:', filterByToEdit.inStock === undefined)
-
 
 
     useEffectOnUpdate(() => {
@@ -109,21 +106,21 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
 
                 <ToyLabelsPickerUi
                     name='Brands'
-                    options={toyService.getBrands()}
+                    options={toysLabels.brands}
                     labels={filterByToEdit.brand}
                     onSaveLabels={(labels) => onSaveLabels(labels, 'brand')}
                 />
 
                 <ToyLabelsPickerUi
                     name='Types'
-                    options={toyService.getToyTypes()}
+                    options={toysLabels.types}
                     labels={filterByToEdit.type}
                     onSaveLabels={(labels) => onSaveLabels(labels, 'type')}
                 />
 
                 <ToyLabelsPickerUi
                     name='Manufacturers'
-                    options={toyService.getManufacturers()}
+                    options={toysLabels.manufacturers}
                     labels={filterByToEdit.manufacturer}
                     onSaveLabels={(labels) => onSaveLabels(labels, 'manufacturer')}
                 />

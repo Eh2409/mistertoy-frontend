@@ -28,7 +28,6 @@ function getStyles(name, personName, theme) {
 }
 
 export function ToyLabelsPickerUi({ name, options, labels, onSaveLabels }) {
-    console.log('Here:', labels)
     const theme = useTheme()
     const [labelsPicked, setLabelsPicked] = useState([...labels])
     const [isMenuClose, setIsMenuClose] = useState(true)

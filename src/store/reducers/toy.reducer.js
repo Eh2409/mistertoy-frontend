@@ -8,14 +8,18 @@ export const UPDATE_TOY = 'UPDATE_TOY'
 // Loader
 export const SET_LOADER = 'SET_LOADER'
 
-// Loader
+// page counst
 export const SET_MAX_PAGE_COUNT = 'SET_MAX_PAGE_COUNT'
+
+// Toy Labels
+export const SET_LABELS = 'SET_LABELS'
 
 
 const initialState = {
     toys: [],
     isLoad: false,
-    maxPageCount: 0
+    maxPageCount: 0,
+    labels: {}
 }
 
 export function toyReducer(state = initialState, cmd) {
@@ -45,6 +49,11 @@ export function toyReducer(state = initialState, cmd) {
 
         case SET_MAX_PAGE_COUNT:
             return { ...state, maxPageCount: cmd.maxPageCount }
+
+        // Labels
+
+        case SET_LABELS:
+            return { ...state, labels: cmd.labels }
 
         default: return state
     }

@@ -23,6 +23,7 @@ import { Pagination } from '../cmps/pagination.jsx'
 export function ToyIndex() {
 
     const toys = useSelector(storeState => storeState.toyModule.toys)
+    const toysLabels = useSelector(storeState => storeState.toyModule.labels)
     const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
     const maxPageCount = useSelector(storeState => storeState.toyModule.maxPageCount)
 
@@ -40,6 +41,14 @@ export function ToyIndex() {
                 showErrorMsg('Cannot load toys')
             })
     }, [filterBy])
+
+    useEffect(() => {
+        toyActions.loadLabels()
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Cannot load labels')
+            })
+    }, [])
 
     function onRemoveToy(toyId) {
         toyActions.removeToy(toyId)
@@ -70,23 +79,28 @@ export function ToyIndex() {
 
     return (
         <section className='toy-index'>
-            <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-            <header className='flex justify-between align-center'>
+
+            {Object.keys(toysLabels).length > 0 && <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} toysLabels={toysLabels} />}
+
+            < header className='flex justify-between align-center'>
                 <h3>Toys List</h3>
                 <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
                 <Link to='/toy/add'><button>Add toy</button></Link>
             </header>
-            {isLoad ? <Loader /> :
-                (toys.length > 0
-                    ? < ToyList toys={toys} onRemoveToy={onRemoveToy} />
-                    : <div className='no-toy'>No matching toy found.</div>)
+
+            {
+                isLoad ? <Loader /> :
+                    (toys.length > 0
+                        ? < ToyList toys={toys} onRemoveToy={onRemoveToy} />
+                        : <div className='no-toy'>No matching toy found.</div>)
             }
 
-            {isPopupOpen
-                ? <Popup onTogglePopup={onTogglePopup} />
-                : <div className='popup-btn' onClick={onTogglePopup}>
-                    <img src={chatImg} alt="" />
-                </div>
+            {
+                isPopupOpen
+                    ? <Popup onTogglePopup={onTogglePopup} />
+                    : <div className='popup-btn' onClick={onTogglePopup}>
+                        <img src={chatImg} alt="" />
+                    </div>
             }
 
             <Pagination filterBy={filterBy} maxPageCount={maxPageCount} onSetPage={onSetPage} onSetPageNumber={onSetPageNumber} />

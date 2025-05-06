@@ -3,12 +3,13 @@
 import { toyService } from '../../services/toy.service.remote.js'
 
 import { store } from '../store.js'
-import { SET_TOYS, REMOVE_TOY, ADD_TOY, UPDATE_TOY, SET_LOADER, SET_MAX_PAGE_COUNT } from "../reducers/toy.reducer.js"
+import { SET_TOYS, REMOVE_TOY, ADD_TOY, UPDATE_TOY, SET_LOADER, SET_MAX_PAGE_COUNT, SET_LABELS } from "../reducers/toy.reducer.js"
 
 export const toyActions = {
     loadToys,
     removeToy,
     saveToy,
+    loadLabels
 }
 
 function loadToys(filterBy) {
@@ -46,6 +47,17 @@ function saveToy(toy) {
         .then(toyToSave => store.dispatch({ type, toy: toyToSave }))
         .catch(err => {
             console.log('toy actions => Cannot save toy:', err)
+            throw err
+        })
+}
+
+function loadLabels() {
+    return toyService.getLabels()
+        .then(labels => {
+            store.dispatch({ type: SET_LABELS, labels })
+        })
+        .catch(err => {
+            console.log('toy actions => Cannot load labels:', err)
             throw err
         })
 }

@@ -45,8 +45,13 @@ function getCahrtsData() {
 }
 
 function getLabels() {
-    return ['Dragon Ball Z', 'Goku', 'Anime', 'Vegeta', 'Frieza', 'Piccolo', 'Trunks', 'Android 18']
+    console.log('pepe:')
+    return httpService.get(BASE_URL + 'labels')
 }
+
+// function getLabels() {
+//     return ['Dragon Ball Z', 'Goku', 'Anime', 'Vegeta', 'Frieza', 'Piccolo', 'Trunks', 'Android 18']
+// }
 
 function getBrands() {
     return [

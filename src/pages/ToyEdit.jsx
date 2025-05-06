@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { useState, useEffect, useRef, Fragment } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import TextField from '@mui/material/TextField';
-
+import { useSelector } from 'react-redux'
 
 // import { toyService } from '../services/toy.service.js'
 import { toyService } from '../services/toy.service.remote.js'
@@ -27,12 +27,21 @@ export function ToyEdit() {
     const navigate = useNavigate()
 
     const [toyToEdit, setToyToEdit] = useState({ ...toyService.getEmptyToy() })
-
+    const toysLabels = useSelector(storeState => storeState.toyModule.labels)
 
     const imageUrlRegex = useRef(/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i)
 
     const hasChanges = useRef(false)
     useConfirmTabClose(hasChanges.current)
+
+    useEffect(() => {
+        toyActions.loadLabels()
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Cannot load labels')
+            })
+    }, [])
+
 
     useEffect(() => {
         if (toyId) {
@@ -95,7 +104,7 @@ export function ToyEdit() {
         />
     }
 
-    if (toyId && !toyToEdit._id) return <Loader />
+    if (toyId && !toyToEdit._id || Object.keys(toysLabels).length <= 0) return <Loader />
 
     return (
         <section className="toy-edit">
@@ -133,7 +142,7 @@ export function ToyEdit() {
                                 <Fragment>
                                     < ToySelectUi
                                         name='Manufacturers'
-                                        options={toyService.getManufacturers()}
+                                        options={toysLabels.manufacturers}
                                         select={field.value}
                                         onSaveSelect={(labels) => { form.setFieldValue(field.name, labels) }}
                                     />
@@ -146,7 +155,7 @@ export function ToyEdit() {
                                 <Fragment>
                                     < ToyLabelsPickerUi
                                         name='Types'
-                                        options={toyService.getToyTypes()}
+                                        options={toysLabels.types}
                                         labels={field.value}
                                         onSaveLabels={(labels) => { form.setFieldValue(field.name, labels) }}
                                     />
@@ -159,7 +168,7 @@ export function ToyEdit() {
                                 <Fragment>
                                     < ToySelectUi
                                         name='Brands'
-                                        options={toyService.getBrands()}
+                                        options={toysLabels.brands}
                                         select={field.value}
                                         onSaveSelect={(labels) => { form.setFieldValue(field.name, labels) }}
                                     />
