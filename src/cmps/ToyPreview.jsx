@@ -1,15 +1,26 @@
-
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from "react-router-dom"
 
 
 export function ToyPreview({ toy }) {
+    const [isImgLoading, setIsImgLoading] = useState(true)
     const navigate = useNavigate()
+
+    function handleImageLoad() {
+        setIsImgLoading(false)
+    }
 
     const { _id, imgUrl, name, price } = toy
     return (
         <section className="toy-preview">
             <div className="toy-img-container" onClick={() => navigate(`/toy/${_id}`)}>
-                <img src={imgUrl} alt={imgUrl} />
+                {isImgLoading && <div className='image-loader'></div>}
+                <img
+                    src={imgUrl}
+                    alt={imgUrl}
+                    onLoad={handleImageLoad}
+                    style={{ display: isImgLoading ? 'none' : 'block' }}
+                />
             </div>
             <div>{name}</div>
             <div>${price}</div>
