@@ -9,9 +9,6 @@ export const toyService = {
     getLabels,
     getDefaultFilter,
     getFilterFromSearchParams,
-    getBrands,
-    getToyTypes,
-    getManufacturers,
     getCahrtsData
 }
 
@@ -45,54 +42,8 @@ function getCahrtsData() {
 }
 
 function getLabels() {
-    console.log('pepe:')
     return httpService.get(BASE_URL + 'labels')
 }
-
-// function getLabels() {
-//     return ['Dragon Ball Z', 'Goku', 'Anime', 'Vegeta', 'Frieza', 'Piccolo', 'Trunks', 'Android 18']
-// }
-
-function getBrands() {
-    return [
-        'Dragon Ball',
-        'One Piece',
-        'My Hero Academia',
-        'Naruto',
-        'Marvel',
-        'Pokemon',
-        'other'
-    ]
-}
-function getToyTypes() {
-    return [
-        'Action Figure',
-        'S.H.Figuarts',
-        'Statue',
-        'Building Set',
-        'Nanoblock',
-        'Keychain',
-        'Vinyl Figure',
-        'Plush',
-        'other'
-    ]
-}
-
-function getManufacturers() {
-    return [
-        'Kawada',
-        'Funko',
-        'Banpresto',
-        'Iron Studios',
-        'Kidrobot',
-        'Bandai',
-        'Great Eastern Entertainment',
-        'Jazwares Inc',
-        'Kotobukiya',
-        'other'
-    ]
-}
-
 
 function getEmptyToy() {
     return {
