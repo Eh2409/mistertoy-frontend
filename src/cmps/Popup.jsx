@@ -1,18 +1,30 @@
-import { Chat } from "./Chat";
 
-export function Popup({ onTogglePopup }) {
+
+export function Popup({ header, footer, children, onTogglePopup }) {
 
     return (
-        <section className="popup">
+        <section className="popup-backdrop" onClick={onTogglePopup}>
 
-            <header className="flex justify-between">
-                <h2>Chat</h2>
-                <button onClick={onTogglePopup}>X</button>
-            </header>
+            <div className="popup" onClick={(event) => event.stopPropagation()}>
 
-            <main><Chat /></main>
-            <footer></footer>
 
-        </section>
+
+                < header className="flex">
+                    {header}
+                    <button className="close-btn" onClick={onTogglePopup}>X</button>
+                </header>
+
+                <main>
+                    {children}
+                </main>
+
+                {footer &&
+                    <footer>
+                        {footer}
+                    </footer>
+                }
+
+            </div>
+        </section >
     )
 }

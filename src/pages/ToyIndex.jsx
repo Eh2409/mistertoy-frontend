@@ -16,6 +16,7 @@ import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { ToySort } from '../cmps/ToySortBy.jsx'
 import { Loader } from '../cmps/Loader.jsx'
 import { Popup } from '../cmps/Popup.jsx'
+import { Chat } from '../cmps/Chat.jsx'
 
 import chatImg from '../assets/img/chat.svg'
 import { Pagination } from '../cmps/pagination.jsx'
@@ -97,13 +98,23 @@ export function ToyIndex() {
 
             {
                 isPopupOpen
-                    ? <Popup onTogglePopup={onTogglePopup} />
+                    ? <Popup
+                        onTogglePopup={onTogglePopup}
+                        header={<h2>Chat</h2>}
+                    >
+                        <Chat />
+                    </Popup >
                     : <div className='popup-btn' onClick={onTogglePopup}>
                         <img src={chatImg} alt="" />
                     </div>
             }
 
-            <Pagination filterBy={filterBy} maxPageCount={maxPageCount} onSetPage={onSetPage} onSetPageNumber={onSetPageNumber} />
+            <Pagination
+                filterBy={filterBy}
+                maxPageCount={maxPageCount}
+                onSetPage={onSetPage}
+                onSetPageNumber={onSetPageNumber}
+            />
 
 
         </section >
