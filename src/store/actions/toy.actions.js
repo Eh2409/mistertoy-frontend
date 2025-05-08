@@ -12,53 +12,52 @@ export const toyActions = {
     loadLabels
 }
 
-function loadToys(filterBy) {
+async function loadToys(filterBy) {
     store.dispatch({ type: SET_LOADER, isLoad: true })
-    return toyService.query(filterBy)
-        .then(({ toys, maxPageCount }) => {
-            store.dispatch({ type: SET_TOYS, toys })
-            store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
-        })
-        .catch(err => {
-            console.log('toy actions => Cannot load toys:', err)
-            throw err
-        })
-        .finally(() => {
-            setTimeout(() => {
-                store.dispatch({ type: SET_LOADER, isLoad: false })
-            }, 350)
-        })
+    try {
+        const { toys, maxPageCount } = await toyService.query(filterBy)
+        store.dispatch({ type: SET_TOYS, toys })
+        store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
+    } catch (err) {
+        console.log('toy actions => Cannot load toys:', err)
+        throw err
+    } finally {
+        setTimeout(() => {
+            store.dispatch({ type: SET_LOADER, isLoad: false })
+        }, 350)
+    }
 }
 
-function removeToy(toyId) {
-    return toyService.remove(toyId)
-        .then(({ maxPageCount }) => {
-            store.dispatch({ type: REMOVE_TOY, toyId: toyId })
-            store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
-        })
-        .catch(err => {
-            console.log('toy actions => Cannot remove toy:', err)
-            throw err
-        })
+
+async function removeToy(toyId) {
+    try {
+        const { maxPageCount } = await toyService.remove(toyId)
+        store.dispatch({ type: REMOVE_TOY, toyId: toyId })
+        store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
+    } catch (err) {
+        console.log('toy actions => Cannot remove toy:', err)
+        throw err
+    }
 }
-function saveToy(toy) {
+
+async function saveToy(toy) {
     const type = toy._id ? UPDATE_TOY : ADD_TOY
-    return toyService.save(toy)
-        .then(toyToSave => store.dispatch({ type, toy: toyToSave }))
-        .catch(err => {
-            console.log('toy actions => Cannot save toy:', err)
-            throw err
-        })
+    try {
+        const toyToSave = await toyService.save(toy)
+        store.dispatch({ type, toy: toyToSave })
+    } catch (err) {
+        console.log('toy actions => Cannot save toy:', err)
+        throw err
+    }
 }
 
-function loadLabels() {
-    return toyService.getLabels()
-        .then(labels => {
-            store.dispatch({ type: SET_LABELS, labels })
-        })
-        .catch(err => {
-            console.log('toy actions => Cannot load labels:', err)
-            throw err
-        })
+async function loadLabels() {
+    try {
+        const labels = await toyService.getLabels()
+        store.dispatch({ type: SET_LABELS, labels })
+    } catch (err) {
+        console.log('toy actions => Cannot load labels:', err)
+        throw err
+    }
 }
 
