@@ -14,35 +14,43 @@ export const toyService = {
 
 const BASE_URL = 'toy/'
 
-function query(filterBy) {
-    return httpService.get(BASE_URL, filterBy)
+async function query(filterBy) {
+    const res = await httpService.get(BASE_URL, filterBy)
+    return res
 }
 
-function get(toyId) {
-    return httpService.get(BASE_URL + toyId)
+async function get(toyId) {
+    const res = await httpService.get(BASE_URL + toyId)
+    return res
 }
 
-function remove(toyId) {
-    return httpService.delete(BASE_URL + toyId)
+async function remove(toyId) {
+    const res = await httpService.delete(BASE_URL + toyId)
+    return res
 }
 
-function save(toy) {
+async function save(toy) {
     const method = toy._id ? 'put' : 'post'
     const toyId = toy._id || ''
 
-    return httpService[method](BASE_URL + toyId, toy)
-        .catch(err => {
-            console.log(err)
-            throw err
-        })
+    try {
+        const res = await httpService[method](BASE_URL + toyId, toy)
+        return res
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+
 }
 
-function getCahrtsData() {
-    return httpService.get(BASE_URL + 'charts')
+async function getCahrtsData() {
+    const res = await httpService.get(BASE_URL + 'charts')
+    return res
 }
 
-function getLabels() {
-    return httpService.get(BASE_URL + 'labels')
+async function getLabels() {
+    const res = await httpService.get(BASE_URL + 'labels')
+    return res
 }
 
 function getEmptyToy() {
