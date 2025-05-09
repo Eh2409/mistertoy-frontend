@@ -20,13 +20,13 @@ export function GoogleMap({ branches, centerToBranch }) {
 
     useEffect(() => {
         if (centerToBranch) {
-            setLoction(centerToBranch)
+            setlocation(centerToBranch)
         }
     }, [centerToBranch])
 
     console.log('center:', center)
 
-    function setLoction({ lat, lng, zoom }) {
+    function setlocation({ lat, lng, zoom }) {
         setCenter({ lat, lng })
         setZoom(zoom)
     }
