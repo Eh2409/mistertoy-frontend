@@ -35,13 +35,8 @@ export function ToyEdit() {
     useConfirmTabClose(hasChanges.current)
 
     useEffect(() => {
-        toyActions.loadLabels()
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot load labels')
-            })
+        onLoadLabels()
     }, [])
-
 
     useEffect(() => {
         if (toyId) {
@@ -49,32 +44,38 @@ export function ToyEdit() {
         }
     }, [toyId])
 
-    function loadToy() {
-        toyService.get(toyId)
-            .then(toy => {
-                setToyToEdit(prev => ({ ...prev, ...toy }))
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot load toy')
-            })
+    async function onLoadLabels() {
+        try {
+            await toyActions.loadLabels()
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot load labels')
+        }
+    }
+
+    async function loadToy() {
+        try {
+            const toy = await toyService.get(toyId)
+            setToyToEdit(prev => ({ ...prev, ...toy }))
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot load toy')
+        }
     }
 
 
-    function onSave(toyToSave) {
+    async function onSave(toyToSave) {
 
         toyToSave.imgUrl = imageUrlRegex.current.test(toyToSave.imgUrl) ? toyToSave.imgUrl : 'src/assets/img/no img.jpg'
 
-        toyActions.saveToy(toyToSave)
-            .then(() => {
-                showSuccessMsg('toy saved')
-                navigate('/toy')
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot save toy')
-            })
-
+        try {
+            await toyActions.saveToy(toyToSave)
+            showSuccessMsg('toy saved')
+            navigate('/toy')
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot save toy')
+        }
     }
 
     const SignupSchema = Yup.object().shape({

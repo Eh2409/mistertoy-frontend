@@ -7,24 +7,22 @@ import { BarChart } from '../cmps/charts/BarChart.jsx'
 import { Loader } from '../cmps/Loader.jsx'
 
 
-
-
 export function Dashboard() {
 
     const [chartsData, setChartsData] = useState(null)
-    console.log('Here:', chartsData)
 
     useEffect(() => {
         loadChartsData()
     }, [])
 
-    function loadChartsData() {
-        toyService.getCahrtsData()
-            .then(data => setChartsData(data))
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot load charts data')
-            })
+    async function loadChartsData() {
+        try {
+            const data = await toyService.getCahrtsData()
+            setChartsData(data)
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot load charts data')
+        }
     }
 
     if (!chartsData) return <Loader />

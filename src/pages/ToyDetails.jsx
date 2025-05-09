@@ -1,9 +1,9 @@
 // import { toyService } from '../services/toy.service.js'
 import { toyService } from '../services/toy.service.remote.js'
 
-
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx"
 
@@ -12,8 +12,9 @@ export function ToyDetails() {
     const params = useParams()
     const { toyId } = params
 
+    const navigate = useNavigate()
+
     const [toy, setToy] = useState(null)
-    console.log('toy:', toy)
 
     useEffect(() => {
         if (toyId) {
@@ -21,13 +22,15 @@ export function ToyDetails() {
         }
     }, [toyId])
 
-    function loadToy() {
-        toyService.get(toyId)
-            .then(toy => setToy(toy))
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot load toy')
-            })
+    async function loadToy() {
+        try {
+            const toy = await toyService.get(toyId)
+            setToy(toy)
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot load toy')
+            setTimeout(() => navigate('/toy'), 500)
+        }
     }
 
     if (!toy) return < Loader />

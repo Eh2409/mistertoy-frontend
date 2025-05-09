@@ -35,31 +35,41 @@ export function ToyIndex() {
 
 
     useEffectOnUpdate(() => {
-        setSearchParams(filterBy)
-        toyActions.loadToys(filterBy)
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot load toys')
-            })
+        onLoadToys(filterBy)
     }, [filterBy])
 
     useEffect(() => {
-        toyActions.loadLabels()
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot load labels')
-            })
+        onLoadLabels()
     }, [])
 
-    function onRemoveToy(toyId) {
-        toyActions.removeToy(toyId)
-            .then(() => {
-                showSuccessMsg('Toy removed')
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot remove toy')
-            })
+
+    async function onLoadToys(filterBy) {
+        try {
+            setSearchParams(filterBy)
+            await toyActions.loadToys(filterBy)
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot load toys')
+        }
+    }
+
+    async function onLoadLabels() {
+        try {
+            await toyActions.loadLabels()
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot load labels')
+        }
+    }
+
+    async function onRemoveToy(toyId) {
+        try {
+            await toyActions.removeToy(toyId)
+            showSuccessMsg('Toy removed')
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot remove toy')
+        }
     }
 
     function onSetFilterBy(filterByToEdit) {
