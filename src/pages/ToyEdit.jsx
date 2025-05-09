@@ -66,7 +66,7 @@ export function ToyEdit() {
 
     async function onSave(toyToSave) {
 
-        toyToSave.imgUrl = imageUrlRegex.current.test(toyToSave.imgUrl) ? toyToSave.imgUrl : 'src/assets/img/no img.jpg'
+        toyToSave.imgUrl = imageUrlRegex.current.test(toyToSave.imgUrl) ? toyToSave.imgUrl : '/src/assets/img/no img.jpg'
 
         try {
             await toyActions.saveToy(toyToSave)
@@ -81,7 +81,11 @@ export function ToyEdit() {
     const SignupSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         price: Yup.number().required('Price is required').min(0, 'Price must be positive'),
-        imgUrl: Yup.string().matches(imageUrlRegex.current, 'Must be a valid image URL')
+        imgUrl: Yup.string().matches(imageUrlRegex.current, 'Must be a valid image URL'),
+        releaseYear: Yup.number().required('Release Year is required')
+            .min(1970, 'The release year must be no earlier than 1970')
+            .max(new Date().getFullYear(), `Enter a valid year up to the current year`),
+        brand: Yup.string().required('brand is required'),
     })
 
     function setLabelName(name) {
@@ -133,7 +137,7 @@ export function ToyEdit() {
                         {/* {errors.description && touched.description && <div className='error-msg'>{errors.description}</div>} */}
 
                         <Field as={customInput} type="number" name="releaseYear" id='releaseYear' placeholder='Enter toy release year' />
-                        {/* {errors.description && touched.description && <div className='error-msg'>{errors.description}</div>} */}
+                        {errors.releaseYear && touched.releaseYear && <div className='error-msg'>{errors.releaseYear}</div>}
 
                         <Field as={customInput} name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
                         {errors.imgUrl && touched.imgUrl && <div className='error-msg'>{errors.imgUrl}</div>}
@@ -176,6 +180,7 @@ export function ToyEdit() {
                                 </Fragment>
                             )}
                         </Field >
+                        {errors.brand && touched.brand && <div className='error-msg'>{errors.brand}</div>}
 
                         <div className='form-btns flex justify-between'>
                             <button type='submit' className="save-btn">Save</button>
