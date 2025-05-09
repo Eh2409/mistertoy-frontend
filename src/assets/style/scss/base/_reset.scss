@@ -38,14 +38,6 @@ p {
 a {
     text-decoration: none;
     color: inherit;
-
-    &:hover {
-        text-decoration: none;
-    }
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 img,
@@ -69,4 +61,14 @@ select {
     max-width: 100%;
     min-width: 0;
     font-family: inherit;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table,
+td,
+th {
+    border: 1px solid $bgColor4;
 }

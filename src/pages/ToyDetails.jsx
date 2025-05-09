@@ -6,8 +6,10 @@ import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx"
+import { ToyDetailsTable } from '../cmps/ToyDetailsTable.jsx'
 
 export function ToyDetails() {
+    const [isImgLoading, setIsImgLoading] = useState(true)
 
     const params = useParams()
     const { toyId } = params
@@ -33,19 +35,38 @@ export function ToyDetails() {
         }
     }
 
+    function handleImageLoad() {
+        setIsImgLoading(false)
+    }
+
     if (!toy) return < Loader />
 
-    const { imgUrl, name, price } = toy
+    const { imgUrl, name, description, brand } = toy
 
     return (
         <section className="toy-details">
-            <img src={imgUrl} alt={imgUrl} />
-            <div className="toy-info">
-                <div className="toy-name">{name}</div>
-                <div>${price}</div>
+
+            <header><Link to='/toy'>Toys</Link> &gt; {brand} &gt; {name}</header>
+
+            <div className="toy-img-container">
+                {isImgLoading && <div className="image-loader"></div>}
+                <img
+                    src={imgUrl}
+                    alt={imgUrl}
+                    onLoad={handleImageLoad}
+                    style={{ display: isImgLoading ? 'none' : 'block' }}
+                />
             </div>
 
-            <Link to='/toy'><button>Back to list</button></Link>
-        </section>
+            <div className="toy-info">
+                <div className="toy-name">{name}</div>
+                <div className="toy-description">{description}</div>
+
+                <ToyDetailsTable toy={toy} />
+
+            </div>
+
+
+        </section >
     )
 }
