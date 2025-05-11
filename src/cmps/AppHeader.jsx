@@ -23,17 +23,15 @@ export function AppHeder(props) {
         setIsSignup(!isSignup)
     }
 
-    function onLogout() {
-        userAction.logout()
-            .then(() => {
-                showSuccessMsg('Logged out successfully')
-            })
-            .catch(err => {
-                console.log(err)
-                showErrorMsg(`Couldn't logout...`)
-            })
+    async function onLogout() {
+        try {
+            await userAction.logout()
+            showSuccessMsg('Logged out successfully')
+        } catch (err) {
+            console.log(err)
+            showErrorMsg(`Couldn't logout...`)
+        }
     }
-
 
     return (
         <header className='main-header main-layout'>

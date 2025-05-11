@@ -18,30 +18,26 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
         isSignup ? signin(credentials) : login(credentials)
     }
 
-    function login(credentials) {
-
-        userAction.login(credentials)
-            .then(user => {
-                showSuccessMsg('Logged in successfully')
-                onTogglePopup()
-            })
-            .catch(err => {
-                console.log(err)
-                showErrorMsg(`Couldn't login...`)
-            })
+    async function login(credentials) {
+        try {
+            await userAction.login(credentials)
+            showSuccessMsg('Logged in successfully')
+            onTogglePopup()
+        } catch (err) {
+            console.log(err)
+            showErrorMsg(`Couldn't login...`)
+        }
     }
 
-
-    function signin(credentials) {
-        userAction.signup(credentials)
-            .then(user => {
-                showSuccessMsg('Signed in successfully')
-                onTogglePopup()
-            })
-            .catch(err => {
-                console.log(err)
-                showErrorMsg(`Couldn't signup...`)
-            })
+    async function signin(credentials) {
+        try {
+            await userAction.signup(credentials)
+            showSuccessMsg('Signed in successfully')
+            onTogglePopup()
+        } catch (err) {
+            console.log(err)
+            showErrorMsg(`Couldn't signup...`)
+        }
     }
 
     const SignupSchema = Yup.object().shape({
