@@ -8,35 +8,32 @@ export const userAction = {
     logout
 }
 
-function login(credentials) {
-    return authService.login(credentials)
-        .then(user =>
-            store.dispatch({ type: SET_USER, user })
-        )
-        .catch(err => {
-            console.log('user action => Cannot login', err)
-            throw err
-        })
+async function login(credentials) {
+    try {
+        const user = await authService.login(credentials)
+        store.dispatch({ type: SET_USER, user })
+    } catch (err) {
+        console.log('user action => Cannot login', err)
+        throw err
+    }
 }
 
-function signup(credentials) {
-    return authService.signup(credentials)
-        .then(user =>
-            store.dispatch({ type: SET_USER, user })
-        )
-        .catch(err => {
-            console.log('user action => Cannot signup', err)
-            throw err
-        })
+async function signup(credentials) {
+    try {
+        const user = await authService.signup(credentials)
+        store.dispatch({ type: SET_USER, user })
+    } catch (err) {
+        console.log('user action => Cannot signup', err)
+        throw err
+    }
 }
 
-function logout() {
-    return authService.logout()
-        .then(() =>
-            store.dispatch({ type: SET_USER, user: null })
-        )
-        .catch(err => {
-            console.log('user action => Cannot logout', err)
-            throw err
-        })
+async function logout() {
+    try {
+        await authService.logout()
+        store.dispatch({ type: SET_USER, user: null })
+    } catch (err) {
+        console.log('user action => Cannot logout', err)
+        throw err
+    }
 }

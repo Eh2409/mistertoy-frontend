@@ -14,55 +14,55 @@ export const userService = {
 const USER_KEY = 'USER_KEY'
 _createUsers()
 
-function query() {
-    return storageService.query(USER_KEY)
+async function query() {
+    const users = await storageService.query(USER_KEY)
+    return users
 }
 
-function getById(userId) {
-    return storageService.get(USER_KEY, userId)
+async function getById(userId) {
+    const user = await storageService.get(USER_KEY, userId)
+    return user
 }
 
-function login({ username, password }) {
-    return storageService.query(STORAGE_KEY)
-        .then(users => {
-            const user = users.find(user => user.username === username)
-            if (user && user.password === password) return _setLoggedinUser(user)
-            else return Promise.reject('Invalid login')
-        })
+async function getByUsername(username) {
+    const users = await storageService.query(USER_KEY)
+    const user = users.find(user => user.username === username)
+    return user
 }
 
-
-function getByUsername(username) {
-    return storageService.query(USER_KEY)
-        .then(users => users.find(user => user.username === username))
-}
-
-function add(user) {
+async function add(user) {
     const { username, password, fullname } = user
-    if (!username || !password || !fullname) return Promise.reject('Missing required fields')
+    if (!username || !password || !fullname) {
+        throw new Error('Missing required fields')
+    }
 
-    return getByUsername(username)
-        .then(existingUser => {
-            if (existingUser) return Promise.reject('Username taken')
+    try {
+        const existingUser = await getByUsername(username)
+        if (existingUser) throw new Error('Username taken')
 
-            user._id = utilService.makeId()
+        user._id = utilService.makeId()
+        const savedUser = await storageService.post(USER_KEY, user)
+        delete savedUser.password
+        return savedUser
 
-            return storageService.post(USER_KEY, user)
-                .then(user => {
-                    delete user.password
-                    return user
-                })
-        })
+    } catch (err) {
+        console.error('Failed to add user:', err)
+        throw err
+    }
 }
 
-function remove(userId) {
-    return storageService.remove(USER_KEY, userId)
+async function remove(userId) {
+    const res = await storageService.remove(USER_KEY, userId)
+    return res
 }
-function save(user) {
+
+async function save(user) {
     if (user._id) {
-        return storageService.put(USER_KEY, user)
+        const savedUser = await storageService.put(USER_KEY, user)
+        return savedUser
     } else {
-        return storageService.post(USER_KEY, user)
+        const savedUser = await storageService.post(USER_KEY, user)
+        return savedUser
     }
 }
 
