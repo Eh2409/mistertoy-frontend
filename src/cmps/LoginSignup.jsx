@@ -1,8 +1,8 @@
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import { useState, useEffect, useRef, Fragment } from "react"
-import { useParams, useNavigate } from "react-router-dom"
 import TextField from '@mui/material/TextField';
+
 
 import { authService } from "../services/auth.service.js"
 import { userService } from "../services/user.service.js"
@@ -12,13 +12,19 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
 
+    const [isloading, setIsloading] = useState(false)
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
 
     function onSubmit(credentials) {
         isSignup ? signin(credentials) : login(credentials)
     }
 
+    function toggleIsLoading(value) {
+        setIsloading(value)
+    }
+
     async function login(credentials) {
+        toggleIsLoading(true)
         try {
             await userAction.login(credentials)
             showSuccessMsg('Logged in successfully')
@@ -26,10 +32,13 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
         } catch (err) {
             console.log(err)
             showErrorMsg(`Couldn't login...`)
+        } finally {
+            toggleIsLoading(false)
         }
     }
 
     async function signin(credentials) {
+        toggleIsLoading(true)
         try {
             await userAction.signup(credentials)
             showSuccessMsg('Signed in successfully')
@@ -37,6 +46,8 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
         } catch (err) {
             console.log(err)
             showErrorMsg(`Couldn't signup...`)
+        } finally {
+            toggleIsLoading(false)
         }
     }
 
@@ -61,7 +72,6 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
             value={props.value}
         />
     }
-
 
     return (
         <section className="login-signup">
@@ -90,7 +100,10 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
                         }
 
 
-                        <button type='submit'>{isSignup ? 'Signup' : 'Login'}</button>
+                        <button type='submit'>{isloading ?
+                            <div className='custom-loader '></div>
+                            : (isSignup ? 'Signup' : 'Login')}
+                        </button>
 
                         <a href="#" onClick={onToggleIsSignup}>
                             {isSignup

@@ -21,7 +21,6 @@ async function login({ username, password }) {
 }
 
 async function signup(user) {
-    console.log('kakapepe:', user)
     try {
         const newUser = await userService.add(user)
         return _setLoggedinUser(newUser)
@@ -48,8 +47,6 @@ function _setLoggedinUser(user) {
         fullname: user.fullname,
         isAdmin: user.isAdmin
     }
-
-    console.log('user to save', userToSave);
 
     sessionStorage.setItem(KEY_LOGGEDIN_USER, JSON.stringify(userToSave))
     return userToSave
