@@ -23,6 +23,7 @@ import { Pagination } from '../cmps/pagination.jsx'
 
 export function ToyIndex() {
 
+    const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const toysLabels = useSelector(storeState => storeState.toyModule.labels)
     const isLoad = useSelector(storeState => storeState.toyModule.isLoad)
@@ -96,13 +97,17 @@ export function ToyIndex() {
             < header className='flex justify-between align-center'>
                 <h3>Toys List</h3>
                 <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-                <Link to='/toy/add'><button>Add toy</button></Link>
+                {loggedinUser && <Link to='/toy/add'><button>Add toy</button></Link>}
             </header>
 
             {
                 isLoad ? <Loader /> :
                     (toys.length > 0
-                        ? < ToyList toys={toys} onRemoveToy={onRemoveToy} />
+                        ? < ToyList
+                            toys={toys}
+                            onRemoveToy={onRemoveToy}
+                            loggedinUser={loggedinUser}
+                        />
                         : <div className='no-toy'>No matching toy found.</div>)
             }
 

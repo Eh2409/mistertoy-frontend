@@ -81,8 +81,8 @@ function _createUsers() {
 
     users = [
         {
-            username: 'muki',
-            password: '344366743',
+            username: 'e33',
+            password: '333',
             fullname: 'muki maka',
             _id: "a11",
             isAdmin: true

@@ -2,7 +2,7 @@ import { ToyPreview } from "./ToyPreview.jsx"
 
 import { Link } from "react-router-dom"
 
-export function ToyList({ toys, onRemoveToy }) {
+export function ToyList({ toys, onRemoveToy, loggedinUser }) {
     return (
         <ul className="toy-list">
             {toys.map(toy => {
@@ -10,11 +10,12 @@ export function ToyList({ toys, onRemoveToy }) {
 
                     <ToyPreview toy={toy} />
 
-                    <div className='toy-btns'>
-                        <Link to={`/toy/${toy._id}`}> <button>Details</button></Link>
-                        <Link to={`/toy/edit/${toy._id}`}><button>Edit</button></Link>
-                        <button onClick={() => onRemoveToy(toy._id)}>Remove</button>
-                    </div>
+                    {loggedinUser && loggedinUser.isAdmin &&
+                        <div className='toy-btns'>
+                            <Link to={`/toy/${toy._id}`}> <button>Details</button></Link>
+                            <Link to={`/toy/edit/${toy._id}`}><button>Edit</button></Link>
+                            <button onClick={() => onRemoveToy(toy._id)}>Remove</button>
+                        </div>}
                 </li>
             })}
         </ul>
