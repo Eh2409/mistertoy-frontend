@@ -35,7 +35,7 @@ export function ToyLabelsPickerUi({ name, options, labels, onSaveLabels }) {
     useEffect(() => {
         if (labels.sort().join(' ') !== labelsPicked.sort().join(' ') && isMenuClose) {
             onSaveLabels(labelsPicked)
-        }
+        } 
     }, [isMenuClose])
 
     const handleChange = (event) => {
