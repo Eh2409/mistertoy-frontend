@@ -1,12 +1,16 @@
 // import { authService } from "../../services/auth.service.js"
 import { authService } from "../../services/auth.service.remote.js"
+import { userService } from "../../services/user.service.remote.js"
+
 import { store } from "../store.js"
-import { SET_USER } from "../reducers/user.reducer.js"
+import { SET_USER, SET_USERS, REMOVE_USER } from "../reducers/user.reducer.js"
 
 export const userAction = {
     login,
     signup,
-    logout
+    logout,
+    loadUsers,
+    removeUser
 }
 
 // auth
@@ -42,3 +46,24 @@ async function logout() {
 }
 
 // user 
+
+async function loadUsers() {
+    try {
+        const users = await userService.query()
+        store.dispatch({ type: SET_USERS, users })
+    } catch (err) {
+        console.log('user actions => Cannot load users:', err)
+        throw err
+    }
+}
+
+async function removeUser(userId) {
+    try {
+        await userService.remove(userId)
+        store.dispatch({ type: REMOVE_USER, userId })
+
+    } catch (err) {
+        console.log('toy actions => Cannot remove toy:', err)
+        throw err
+    }
+}
