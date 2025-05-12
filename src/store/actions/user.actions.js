@@ -1,4 +1,5 @@
-import { authService } from "../../services/auth.service.js"
+// import { authService } from "../../services/auth.service.js"
+import { authService } from "../../services/auth.service.remote.js"
 import { store } from "../store.js"
 import { SET_USER } from "../reducers/user.reducer.js"
 
@@ -7,6 +8,8 @@ export const userAction = {
     signup,
     logout
 }
+
+// auth
 
 async function login(credentials) {
     try {
@@ -37,3 +40,5 @@ async function logout() {
         throw err
     }
 }
+
+// user 
