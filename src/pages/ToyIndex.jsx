@@ -36,7 +36,7 @@ export function ToyIndex() {
 
 
     useEffectOnUpdate(() => {
-        onLoadToys(filterBy)
+        onLoadToys()
     }, [filterBy])
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export function ToyIndex() {
     }, [])
 
 
-    async function onLoadToys(filterBy) {
+    async function onLoadToys() {
         try {
             setSearchParams(filterBy)
             await toyActions.loadToys(filterBy)
@@ -70,6 +70,8 @@ export function ToyIndex() {
         } catch (err) {
             console.log('err:', err)
             showErrorMsg('Cannot remove toy')
+        } finally {
+            onLoadToys()
         }
     }
 
@@ -97,7 +99,7 @@ export function ToyIndex() {
             < header className='flex justify-between align-center'>
                 <h3>Toys List</h3>
                 <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
-                {loggedinUser && <Link to='/toy/add'><button>Add toy</button></Link>}
+                {loggedinUser && loggedinUser.isAdmin && <Link to='/toy/add'><button>Add toy</button></Link>}
             </header>
 
             {

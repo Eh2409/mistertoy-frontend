@@ -31,9 +31,9 @@ async function loadToys(filterBy) {
 
 async function removeToy(toyId) {
     try {
-        const { maxPageCount } = await toyService.remove(toyId)
+        await toyService.remove(toyId)
         store.dispatch({ type: REMOVE_TOY, toyId: toyId })
-        store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
+        // store.dispatch({ type: SET_MAX_PAGE_COUNT, maxPageCount })
     } catch (err) {
         console.log('toy actions => Cannot remove toy:', err)
         throw err

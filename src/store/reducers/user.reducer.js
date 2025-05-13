@@ -1,4 +1,4 @@
-import { authService } from "../../services/auth.service.js"
+import { authService } from "../../services/auth.service.remote.js"
 
 // users
 export const SET_USERS = 'SET_USERS'
@@ -9,7 +9,7 @@ export const SET_USER = 'SET_USER'
 
 const initialState = {
     users: [],
-    loggedinUser: authService.getLoggedinUser(),
+    loggedinUser: authService.getLoggedInUser(),
 }
 
 export function userReducer(state = initialState, cmd) {
