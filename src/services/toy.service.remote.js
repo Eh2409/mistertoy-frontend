@@ -9,7 +9,10 @@ export const toyService = {
     getLabels,
     getDefaultFilter,
     getFilterFromSearchParams,
-    getCahrtsData
+    getCahrtsData,
+    getEmptyMsg,
+    addMsg,
+    removeMsg
 }
 
 const BASE_URL = 'toy/'
@@ -112,3 +115,22 @@ function getFilterFromSearchParams(searchParams) {
     return filterBy
 }
 
+/// msg
+
+function getEmptyMsg() {
+    return {
+        txt: '',
+    }
+}
+
+async function addMsg(toyId, msg) {
+    const route = `${toyId}/msg`
+    const savedMsg = await httpService.post(BASE_URL + route, msg)
+    return savedMsg
+}
+
+async function removeMsg(toyId, msgId) {
+    const route = `${toyId}/msg/${msgId}`
+    const savedMsg = await httpService.post(BASE_URL + route)
+    return savedMsg
+}

@@ -1,0 +1,71 @@
+.toy-msgs {
+    display: flex;
+    flex-direction: column;
+    height: em(350px);
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+
+    .body {
+        flex-grow: 1;
+        overflow-y: scroll;
+        word-break: break-word;
+        margin: 0;
+        margin-block-end: 1em;
+        background-color: $bgColor1;
+
+        li {
+            display: grid;
+            align-items: center;
+            gap: 0.2em;
+
+            padding: 0.4em;
+            margin: 0.4em;
+
+            :first-child {
+                font-size: 0.9em;
+                padding: 0.2em;
+                text-transform: capitalize;
+            }
+
+            pre {
+                white-space: normal;
+                font-family: inherit;
+                margin: 0;
+                padding-inline-start: 0.4em;
+            }
+
+            &.my-msg {
+                margin-inline-start: 2em;
+                background-color: $chatMessBg1;
+                border-radius: 1em 1em 0 1em;
+            }
+
+            &.other-msg {
+                margin-inline-end: 2em;
+                background-color: $chatMessBg2;
+                border-radius: 1em 1em 1em 0;
+            }
+        }
+    }
+
+    form {
+        display: flex;
+        padding-inline: 1em;
+        margin-block-end: 1em;
+
+        input {
+            flex-grow: 1;
+            padding: 0.3em;
+            border-radius: 1em;
+            padding-inline-start: 1em;
+        }
+
+    }
+
+    .login-msg {
+        text-align: center;
+        padding: 0 0.5em 1em 0.5em;
+        font-weight: bold;
+    }
+}

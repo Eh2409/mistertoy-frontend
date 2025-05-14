@@ -2,10 +2,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { utilService } from '../services/util.service.js'
 
-export function Chat(props) {
+export function Chat({ loggedinUser }) {
 
     const [chat, setChat] = useState([{ createAt: Date.now(), content: 'Hello! How can I assist you today?', sender: 'chat-agent' }])
-    const [message, setMessage] = useState({ createAt: 0, content: '', sender: 'user' })
+    const [message, setMessage] = useState({ createAt: 0, content: '', sender: loggedinUser ? loggedinUser.fullname : 'gust' })
 
     const DefaultMessage = useRef({ createAt: 0, content: '', sender: 'user' })
     const debounce = useRef(utilService.debounce(autoMessage, 1000))
@@ -41,7 +41,7 @@ export function Chat(props) {
         <section className="chat" >
             <ul className="body" ref={messagesEndRef}>
                 {chat.length > 0 && chat.map(m => {
-                    return <li key={m.createAt} className={m.sender}>
+                    return <li key={m.createAt} className={m.sender === 'chat-agent' ? m.sender : 'user'}>
                         <div className='flex justify-between'><span>{m.sender}</span>
                             <span>{new Date(m.createAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}</span>
                         </div>

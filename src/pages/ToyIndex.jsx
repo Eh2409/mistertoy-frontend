@@ -119,7 +119,7 @@ export function ToyIndex() {
                         onTogglePopup={onTogglePopup}
                         header={<h2>Chat</h2>}
                     >
-                        <Chat />
+                        <Chat loggedinUser={loggedinUser} />
                     </Popup >
                     : <div className='popup-btn' onClick={onTogglePopup}>
                         <img src={chatImg} alt="" />
