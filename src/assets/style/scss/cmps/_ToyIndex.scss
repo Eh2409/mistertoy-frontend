@@ -1,4 +1,24 @@
 .toy-index {
+
+    header {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+
+        a {
+            grid-column: span 2;
+            width: 100%;
+
+            button {
+                width: 100%;
+            }
+        }
+
+        .toy-sort {
+            place-self: end;
+        }
+    }
+
     .no-toy {
         color: red;
         text-align: center;
@@ -44,6 +64,28 @@
 @include for-tablet-layout {
 
     .toy-index {
+
+        header {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+
+            a {
+                grid-area: 1/2;
+                place-self: center;
+                width: max-content;
+
+                button {
+                    place-self: center;
+                }
+            }
+
+            .toy-sort {
+                grid-column: 3;
+                place-self: end;
+            }
+        }
+
         .popup-btn {
             width: 70px;
             height: 70px;

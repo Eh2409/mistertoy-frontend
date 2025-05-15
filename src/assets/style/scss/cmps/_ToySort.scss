@@ -1,3 +1,10 @@
 .toy-sort {
-    gap: 0.5em;
+    background-color: white;
+    width: min-content;
+}
+
+@include for-tablet-layout {
+    .toy-sort {
+        width: em(210px);
+    }
 }

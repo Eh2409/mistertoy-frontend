@@ -96,7 +96,7 @@ export function ToyIndex() {
 
             {Object.keys(toysLabels).length > 0 && <ToyFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} toysLabels={toysLabels} />}
 
-            < header className='flex justify-between align-center'>
+            < header>
                 <h3>Toys List</h3>
                 <ToySort filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
                 {loggedinUser && loggedinUser.isAdmin && <Link to='/toy/add'><button>Add toy</button></Link>}
