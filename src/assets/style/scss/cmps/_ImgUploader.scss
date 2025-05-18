@@ -1,0 +1,14 @@
+.img-uploader {
+    .image-upload-btn {
+        cursor: pointer;
+        border-radius: em(10px);
+        outline: solid 2px black;
+
+        width: 200px;
+        aspect-ratio: 1/1;
+
+        &:hover {
+            filter: opacity(0.5);
+        }
+    }
+}

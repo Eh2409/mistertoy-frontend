@@ -19,6 +19,7 @@ import { Link } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx"
 import { ToyLabelsPickerUi } from '../cmps/ToyLabelsPickerUi.jsx'
 import { ToySelectUi } from '../cmps/ToySelectUi.jsx';
+import { ImgUploader } from '../cmps/ImgUploader.jsx';
 
 export function ToyEdit() {
     const params = useParams()
@@ -139,8 +140,10 @@ export function ToyEdit() {
                         <Field as={customInput} type="number" name="releaseYear" id='releaseYear' placeholder='Enter toy release year' />
                         {errors.releaseYear && touched.releaseYear && <div className='error-msg'>{errors.releaseYear}</div>}
 
-                        <Field as={customInput} name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
-                        {errors.imgUrl && touched.imgUrl && <div className='error-msg'>{errors.imgUrl}</div>}
+
+                        {/* <Field as={customInput} name="imgUrl" id='imgUrl' placeholder='Enter toy image url' />
+                        {errors.imgUrl && touched.imgUrl && <div className='error-msg'>{errors.imgUrl}</div>} */}
+
 
                         <Field name="manufacturer" id='manufacturer'>
                             {({ field, form }) => (
@@ -182,6 +185,19 @@ export function ToyEdit() {
                         </Field >
                         {errors.brand && touched.brand && <div className='error-msg'>{errors.brand}</div>}
 
+                        <Field name="imgUrl" id='imgUrls'>
+                            {({ field, form }) => (
+                                <Fragment>
+                                    <ImgUploader
+                                        name='imgUrl'
+                                        select={field.value}
+                                        onSaveImage={(img) => { form.setFieldValue(field.name, img) }}
+                                        currImage={field.value}
+                                    />
+                                </Fragment>
+                            )}
+                        </Field >
+
                         <div className='form-btns flex justify-between'>
                             <button type='submit' className="save-btn">Save</button>
                             <Link to='/toy'><button>Back to list</button></Link>
@@ -192,4 +208,5 @@ export function ToyEdit() {
         </section >
     )
 }
+
 
