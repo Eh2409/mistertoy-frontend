@@ -68,6 +68,7 @@ function getEmptyToy() {
         description: '',
         createdAt: 0,
         inStock: true,
+        msgs: []
     }
 }
 function getDefaultFilter() {
