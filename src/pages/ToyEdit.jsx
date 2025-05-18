@@ -19,7 +19,7 @@ import { Link } from "react-router-dom"
 import { Loader } from "../cmps/Loader.jsx"
 import { ToyLabelsPickerUi } from '../cmps/ToyLabelsPickerUi.jsx'
 import { ToySelectUi } from '../cmps/ToySelectUi.jsx';
-import { ImgUploader } from '../cmps/ImgUploader.jsx';
+import { ToyImgUploader } from '../cmps/ToyImgUploader.jsx';
 
 export function ToyEdit() {
     const params = useParams()
@@ -29,11 +29,12 @@ export function ToyEdit() {
 
     const [toyToEdit, setToyToEdit] = useState({ ...toyService.getEmptyToy() })
     const toysLabels = useSelector(storeState => storeState.toyModule.labels)
+   
 
     const imageUrlRegex = useRef(/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i)
 
-    const hasChanges = useRef(false)
-    useConfirmTabClose(hasChanges.current)
+    // const hasChanges = useRef(false)
+    // useConfirmTabClose(hasChanges.current)
 
     useEffect(() => {
         onLoadLabels()
@@ -66,6 +67,7 @@ export function ToyEdit() {
 
 
     async function onSave(toyToSave) {
+        console.log('kaka:')
 
         toyToSave.imgUrl = imageUrlRegex.current.test(toyToSave.imgUrl) ? toyToSave.imgUrl : '/src/assets/img/no img.jpg'
 
@@ -124,7 +126,6 @@ export function ToyEdit() {
             >
 
                 {({ errors, touched, values }) => {
-                    console.log('Formik values:', values)
                     return (< Form >
 
                         <Field as={customInput} type="text" name="name" id='name' placeholder='Enter toy name' />
@@ -185,14 +186,13 @@ export function ToyEdit() {
                         </Field >
                         {errors.brand && touched.brand && <div className='error-msg'>{errors.brand}</div>}
 
-                        <Field name="imgUrl" id='imgUrls'>
+                        <Field name="imgUrls" id='imgUrls'>
                             {({ field, form }) => (
                                 <Fragment>
-                                    <ImgUploader
-                                        name='imgUrl'
-                                        select={field.value}
-                                        onSaveImage={(img) => { form.setFieldValue(field.name, img) }}
-                                        currImage={field.value}
+                                    <ToyImgUploader
+                                        name='imgUrls'
+                                        onSaveImage={(imgs) => { form.setFieldValue(field.name, imgs) }}
+                                        currImages={field.value}
                                     />
                                 </Fragment>
                             )}
@@ -202,6 +202,7 @@ export function ToyEdit() {
                             <button type='submit' className="save-btn">Save</button>
                             <Link to='/toy'><button>Back to list</button></Link>
                         </div>
+
                     </Form>)
                 }}
             </Formik>

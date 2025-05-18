@@ -1,0 +1,47 @@
+.toy-img-uploader {
+    background-color: $bgColor2;
+    border: 1px solid $bgColor3;
+    border-radius: em(10px);
+    padding: em(10px);
+
+    .upload-image-btn {
+        display: block;
+        margin-block-end: 1em;
+        text-align: center;
+    }
+
+    .images {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: em(10px);
+
+
+        .new-image-container {
+
+            position: relative;
+
+            .new-image {
+                border-radius: em(10px);
+                outline: solid 2px black;
+
+                width: 200px;
+                aspect-ratio: 1/1;
+            }
+
+            .remove-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        .new-image-loader {
+            border-radius: em(10px);
+            outline: solid 2px black;
+
+            width: 200px;
+            aspect-ratio: 1/1;
+        }
+    }
+
+}

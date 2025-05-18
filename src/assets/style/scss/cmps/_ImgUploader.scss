@@ -1,4 +1,12 @@
 .img-uploader {
+    position: relative;
+
+    .remove-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
     .image-upload-btn {
         cursor: pointer;
         border-radius: em(10px);
