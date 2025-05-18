@@ -10,12 +10,12 @@ import { Loader } from "../cmps/Loader.jsx"
 import { ToyDetailsTable } from '../cmps/ToyDetailsTable.jsx'
 import { ToyMsgs } from '../cmps/ToyMsgs.jsx'
 import { Popup } from '../cmps/Popup.jsx'
+import { ImageGallery } from '../cmps/ImageGallery.jsx'
 
 export function ToyDetails() {
     const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
     const [toy, setToy] = useState(null)
-    const [isImgLoading, setIsImgLoading] = useState(true)
-    const [isPopupOpen, setIsPopupOpen] = useState(false)
+    const [isPopupOpen, setIsPopupOpen] = useState({ type: '', isOpen: false })
 
     const params = useParams()
     const { toyId } = params
@@ -39,10 +39,6 @@ export function ToyDetails() {
         }
     }
 
-    function handleImageLoad() {
-        setIsImgLoading(false)
-    }
-
     async function onSendMsg(msg) {
         try {
             const savedMsg = await toyService.addMsg(toyId, msg)
@@ -63,28 +59,39 @@ export function ToyDetails() {
         }
     }
 
-    function onTogglePopup() {
-        setIsPopupOpen(!isPopupOpen)
+    function onTogglePopup(type) {
+        setIsPopupOpen(prev => {
+            if (isPopupOpen.isOpen) {
+                return { type: '', isOpen: false }
+            } else {
+                return { type: type, isOpen: true }
+            }
+        })
     }
 
     if (!toy) return < Loader />
 
-    const { imgUrl, name, description, brand, imgUrls } = toy
+    const { name, description, brand, imgUrls } = toy
 
     return (
         <section className="toy-details">
 
             <header><Link to='/toy'>Toys</Link> &gt; {brand} &gt; {name}</header>
 
-            <div className="toy-img-container">
-                {isImgLoading && <div className="image-loader"></div>}
-                <img
-                    src={imgUrls?.length > 0 ? imgUrls[0] : '/src/assets/img/no img.jpg'}
-                    alt={imgUrls?.length > 0 ? imgUrls[0] : 'no img'}
-                    onLoad={handleImageLoad}
-                    style={{ display: isImgLoading ? 'none' : 'block' }}
-                />
-            </div>
+
+            <ImageGallery images={imgUrls}  >
+                {/* <button className='expend-btn' onClick={() => onTogglePopup('image gallery')}>
+                    <img src="/src/assets/img/expend.svg" alt="expend" />
+                </button> */}
+            </ImageGallery>
+
+            {isPopupOpen.isOpen && isPopupOpen.type === 'image gallery' && <Popup
+                onTogglePopup={onTogglePopup}
+                header={<h2>Image gallery</h2>}
+            >
+                <ImageGallery images={imgUrls} />
+
+            </Popup >}
 
             <div className="toy-info">
                 <div className="toy-name">{name}</div>
@@ -92,10 +99,10 @@ export function ToyDetails() {
 
                 <ToyDetailsTable toy={toy} />
 
-                <button className='popup-btn' onClick={onTogglePopup}>
+                <button className='popup-btn' onClick={() => onTogglePopup('toy messages')}>
                     Toy messages
                 </button>
-                {isPopupOpen && <Popup
+                {isPopupOpen.isOpen && isPopupOpen.type === 'toy messages' && <Popup
                     onTogglePopup={onTogglePopup}
                     header={<h2>Toy messages</h2>}
                 >

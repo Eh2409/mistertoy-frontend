@@ -1,0 +1,63 @@
+.image-gallery {
+    .selected-img {
+        position: relative;
+
+        .expend-btn {
+            position: absolute;
+            right: em(5px);
+            bottom: em(5px);
+
+            width: 3em;
+            height: 3em;
+            box-shadow: 2px 2px 2px rgb(164, 164, 164);
+        }
+    }
+
+    .img-container {
+        .image-loader {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: linear-gradient(90deg, #eeeeee 25%, #dddddd 50%, #eeeeee 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
+        }
+
+        img {
+            grid-column: 1;
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+        }
+
+    }
+
+
+    .image-selector {
+        overflow-x: scroll;
+        gap: em(2px);
+
+        li {
+            min-width: 100px;
+            max-width: 100px;
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 200ms;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            img {
+                object-fit: cover;
+            }
+
+            &.selected {
+                border: 2px solid $bgColor5;
+                opacity: 1;
+            }
+        }
+
+
+    }
+}
