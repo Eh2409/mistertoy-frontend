@@ -10,14 +10,15 @@ export function ToyPreview({ toy }) {
         setIsImgLoading(false)
     }
 
-    const { _id, imgUrl, name, price } = toy
+    const { _id, imgUrl, name, price, imgUrls } = toy
+
     return (
         <section className="toy-preview">
             <div className="toy-img-container" onClick={() => navigate(`/toy/${_id}`)}>
                 {isImgLoading && <div className='image-loader'></div>}
                 <img
-                    src={imgUrl}
-                    alt={imgUrl}
+                    src={imgUrls?.length > 0 ? imgUrls[0] : '/src/assets/img/no img.jpg'}
+                    alt={imgUrls?.length > 0 ? imgUrls[0] : 'no img'}
                     onLoad={handleImageLoad}
                     style={{ display: isImgLoading ? 'none' : 'block' }}
                 />

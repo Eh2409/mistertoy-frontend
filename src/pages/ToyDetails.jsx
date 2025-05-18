@@ -69,7 +69,7 @@ export function ToyDetails() {
 
     if (!toy) return < Loader />
 
-    const { imgUrl, name, description, brand } = toy
+    const { imgUrl, name, description, brand, imgUrls } = toy
 
     return (
         <section className="toy-details">
@@ -79,8 +79,8 @@ export function ToyDetails() {
             <div className="toy-img-container">
                 {isImgLoading && <div className="image-loader"></div>}
                 <img
-                    src={imgUrl}
-                    alt={imgUrl}
+                    src={imgUrls?.length > 0 ? imgUrls[0] : '/src/assets/img/no img.jpg'}
+                    alt={imgUrls?.length > 0 ? imgUrls[0] : 'no img'}
                     onLoad={handleImageLoad}
                     style={{ display: isImgLoading ? 'none' : 'block' }}
                 />
