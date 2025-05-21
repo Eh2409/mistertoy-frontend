@@ -29,7 +29,7 @@ export function ToyEdit() {
 
     const [toyToEdit, setToyToEdit] = useState({ ...toyService.getEmptyToy() })
     const toysLabels = useSelector(storeState => storeState.toyModule.labels)
-   
+
 
     const imageUrlRegex = useRef(/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i)
 
@@ -67,8 +67,6 @@ export function ToyEdit() {
 
 
     async function onSave(toyToSave) {
-        console.log('kaka:')
-
         toyToSave.imgUrl = imageUrlRegex.current.test(toyToSave.imgUrl) ? toyToSave.imgUrl : '/src/assets/img/no img.jpg'
 
         try {

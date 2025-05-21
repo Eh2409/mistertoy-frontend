@@ -1,71 +1,72 @@
 .toy-details {
-    gap: 1em;
-    padding: 1em;
-    border-radius: 0.1em;
-    overflow: hidden;
-    background-color: $bgColor1;
-    outline: 1px solid rgba(0, 0, 0, .25);
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, .25);
-    margin-block-end: 1em;
-
-    header {
-        grid-column: 2 span;
-        background-color: $bgColor2;
-        padding: 0.5em;
-
-        a {
-            color: $fontColor1;
-
-            &:hover {
-                color: lighten($fontColor1, 20%);
-            }
-        }
-    }
-
-    .toy-info {
-        grid-column: 2;
-
-        display: flex;
-        flex-direction: column;
-        gap: 0.5em;
+    .toy-details-container {
+        gap: 1em;
+        padding: 1em;
+        border-radius: 0.1em;
+        overflow: hidden;
+        background-color: $bgColor1;
+        outline: 1px solid rgba(0, 0, 0, .25);
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, .25);
         margin-block-end: 1em;
 
-        .toy-name {
-            font-size: 1em;
-            font-weight: bold;
-            box-shadow: 0px 4px $bgColor5;
-            margin-block-end: 1em;
-        }
+        header {
+            grid-column: 2 span;
+            background-color: $bgColor2;
+            padding: 0.5em;
 
-        .toy-description {
-            margin-block-end: 1em;
-        }
+            a {
+                color: $fontColor1;
 
-        .toy-details-table {
-            tr {
-                td {
-                    padding: 0.5em;
-                }
-
-                :first-child:not(span) {
-                    background-color: $bgColor2;
-                    width: 10em;
-                    font-weight: bold;
-                }
-
-                :last-child {
-                    background-color: $bgColor1;
+                &:hover {
+                    color: lighten($fontColor1, 20%);
                 }
             }
         }
 
-        .popup-btn {
-            font-size: 1.2em;
-            margin: 0 auto;
+        .toy-info {
+            grid-column: 2;
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            margin-block-end: 1em;
+
+            .toy-name {
+                font-size: 1em;
+                font-weight: bold;
+                box-shadow: 0px 4px $bgColor5;
+                margin-block-end: 1em;
+            }
+
+            .toy-description {
+                margin-block-end: 1em;
+            }
+
+            .toy-details-table {
+                tr {
+                    td {
+                        padding: 0.5em;
+                    }
+
+                    :first-child:not(span) {
+                        background-color: $bgColor2;
+                        width: 10em;
+                        font-weight: bold;
+                    }
+
+                    :last-child {
+                        background-color: $bgColor1;
+                    }
+                }
+            }
+
+            .popup-btn {
+                font-size: 1.2em;
+                margin: 0 auto;
+            }
         }
+
     }
-
-
 
 }
 
@@ -74,18 +75,20 @@
 
 @include for-tablet-layout {
     .toy-details {
-        display: grid;
-        grid-template-columns: minmax(300px, 30vw) 1fr;
+        .toy-details-container {
+            display: grid;
+            grid-template-columns: minmax(300px, 30vw) 1fr;
 
-        .toy-info {
-            margin-block-end: 1em;
+            .toy-info {
+                margin-block-end: 1em;
 
-            .toy-name {
-                font-size: 2em;
-            }
+                .toy-name {
+                    font-size: 2em;
+                }
 
-            .toy-description {
-                margin-inline-end: 10em;
+                .toy-description {
+                    margin-inline-end: 10em;
+                }
             }
         }
     }
