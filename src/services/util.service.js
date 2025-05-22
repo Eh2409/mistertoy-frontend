@@ -4,7 +4,8 @@ export const utilService = {
     getRandomIntInclusive,
     loadFromStorage,
     saveToStorage,
-    debounce
+    debounce,
+    formatCreatedAtDate
 }
 
 function makeId(length = 6) {
@@ -56,3 +57,25 @@ function debounce(func, wait) {
     }
 }
 
+function formatCreatedAtDate(createdAt) {
+    const dateNow = Date.now()
+    const day = 1000 * 60 * 60 * 24
+
+    if (dateNow - createdAt < day) {
+        const options = {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        }
+        const time = new Date(createdAt).toLocaleString('de-DE', options)
+        return time
+    } else if (new Date(dateNow).getFullYear() === new Date(createdAt).getFullYear()) {
+        const date = new Date(createdAt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', })
+        return date
+    } else {
+        return new Date(createdAt).toLocaleDateString()
+    }
+}

@@ -1,7 +1,19 @@
 .toy-reviews {
     .reviews-list {
-        .review-item {
+
+        &.grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1em;
+        }
+
+
+        .review-item {
+
+            display: grid;
+            grid-template-rows: auto 1fr;
+
+            // gap: 1em;
             padding: 1em;
             border-radius: 0.1em;
             background-color: $bgColor1;
@@ -11,9 +23,24 @@
 
             .review-header {
                 margin-block-end: 0.2em;
+
+                .author-details {
+                    display: grid;
+                }
+
+                span {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    a {
+                        color: $fontColor2;
+                    }
+                }
             }
 
             .review-txt {
+                grid-row: 2;
                 gap: 1em;
                 padding: 1em;
                 border-radius: 0.1em;
@@ -22,6 +49,13 @@
                 font-family: inherit;
                 white-space: break-spaces;
                 word-break: break-word;
+                margin: 0;
+
+                .review-created-at {
+                    font-size: 10px;
+                    margin-block-start: auto;
+                    text-align: end;
+                }
             }
 
             &.no-review {
@@ -37,5 +71,10 @@
 @include for-tablet-layout {
     .reviews-list {
         margin-inline: 4em;
+
+        &.grid-layout {
+            margin-inline: 0em;
+        }
+
     }
 }

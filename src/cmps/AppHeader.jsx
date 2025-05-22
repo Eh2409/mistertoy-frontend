@@ -43,6 +43,7 @@ export function AppHeder(props) {
                     <NavLink to="/about" >About</NavLink>
                     <NavLink to="/toy" >Toys</NavLink>
                     <NavLink to="/dashboard" >Dashboard</NavLink>
+                    <NavLink to="/review" >Reviews</NavLink>
                 </nav>
 
                 <div>
