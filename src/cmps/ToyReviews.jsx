@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { utilService } from "../services/util.service.js"
 
-export function ToyReviews({ reviews, loggedinUser, onRemoveReview, isReviewPage = false }) {
+export function ToyReviews({ reviews, loggedinUser, onRemoveReview = null, isReviewPage = false }) {
     console.log('re:', reviews)
     return (
         <section className="toy-reviews">
@@ -19,7 +19,7 @@ export function ToyReviews({ reviews, loggedinUser, onRemoveReview, isReviewPage
 
                             </div>
                             {loggedinUser?.isAdmin &&
-                                <button onClick={() => { onRemoveReview(review._id) }}>X</button>}
+                                <button onClick={() => { onRemoveReview?.(review._id) }}>X</button>}
                         </div>
                         <pre className="review-txt">
                             <span>{review.txt}</span>
@@ -27,7 +27,9 @@ export function ToyReviews({ reviews, loggedinUser, onRemoveReview, isReviewPage
                         </pre>
                     </li>
                 })
-                    : <li className="review-item no-review">This toy has not yet been reviewed.</li>
+                    : <li className="review-item no-review">
+                        {isReviewPage ? 'No reviews found' : 'This toy has not yet been reviewed.'}
+                    </li>
                 }
             </ul>
         </section>

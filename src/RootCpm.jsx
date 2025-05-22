@@ -13,6 +13,7 @@ import { ToyEdit } from './pages/ToyEdit.jsx'
 import { About } from './pages/About.jsx'
 import { Dashboard } from './pages/Dashboard.jsx'
 import { ReviewExplore } from './pages/ReviewExplore.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
 
 export function RootCpm() {
     return (
@@ -30,6 +31,7 @@ export function RootCpm() {
                             <Route path="/toy/add" element={<ToyEdit />} />
                             <Route path="/toy/edit/:toyId" element={<ToyEdit />} />
                             <Route path="/review" element={<ReviewExplore />} />
+                            <Route path="/user/:userId" element={<UserDetails />} />
                         </Routes>
                     </main>
                 </section>

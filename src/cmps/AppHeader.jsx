@@ -53,6 +53,10 @@ export function AppHeder(props) {
                     </button>
                 </div>
 
+                <Link to={`/user/${loggedinUser?._id}`} >
+                    <div>pro</div>
+                </Link >
+
                 {isPopupOpen && !loggedinUser &&
                     <Popup
                         onTogglePopup={onTogglePopup}
