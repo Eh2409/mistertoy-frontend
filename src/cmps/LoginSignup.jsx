@@ -3,19 +3,24 @@ import * as Yup from 'yup'
 import { useState, useEffect, useRef, Fragment } from "react"
 import TextField from '@mui/material/TextField';
 
-
 // import { authService } from "../services/auth.service.js"
 import { userService } from "../services/user.service.remote.js"
 import { userAction } from "../store/actions/user.actions.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
-
+import { ImgUploader } from "../cmps/ImgUploader.jsx"
 
 export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
 
     const [isloading, setIsloading] = useState(false)
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
+    console.log('Here:', credentials)
 
     function onSubmit(credentials) {
+
+        if (isSignup && !credentials?.profileImg) {
+            credentials.profileImg = '/src/assets/img/profile-img.jpg'
+        }
+
         isSignup ? signin(credentials) : login(credentials)
     }
 
@@ -75,7 +80,6 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
 
     return (
         <section className="login-signup">
-
             <Formik
                 initialValues={credentials}
                 validationSchema={SignupSchema}
@@ -83,7 +87,7 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
             >
 
                 {({ errors, touched, values }) => {
-                    // console.log('Formik values:', values)
+                    console.log('Formik values:', values)
                     return (< Form >
 
                         <Field as={customInput} type="text" name="username" id='username' placeholder='Enter username' />
@@ -96,9 +100,20 @@ export function LoginSignup({ isSignup, onToggleIsSignup, onTogglePopup }) {
                             <Fragment>
                                 <Field as={customInput} type="text" name="fullname" id='fullname' placeholder='Enter fullname' />
                                 {errors.fullname && touched.fullname && <div className='error-msg'>{errors.fullname}</div>}
+
+
+
+                                <Field name="profileImg" id='profileImg'>
+                                    {({ field, form }) => (
+                                        < ImgUploader
+                                            currImage={field.value}
+                                            onSaveImage={(profileImg) => form.setFieldValue('profileImg', profileImg)}
+                                        />
+                                    )}
+                                </Field >
+
                             </Fragment>
                         }
-
 
                         <button type='submit'>{isloading ?
                             <div className='custom-loader '></div>

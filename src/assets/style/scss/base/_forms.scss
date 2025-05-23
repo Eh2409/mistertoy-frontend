@@ -17,6 +17,33 @@ button {
         background-color: lighten($btnBgColor1, 5%);
 
     }
+
+    &.user-btn {
+        border-radius: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
+        outline: 2px solid $bgColor4;
+        place-content: start;
+
+
+        .profile-img {
+            width: 30px;
+            aspect-ratio: 1/1;
+            background-color: white;
+            border-radius: 50%;
+            outline: 2px solid $bgColor4;
+        }
+
+        .profile-Symbol {
+            font-size: em(28px);
+        }
+
+        span {
+            padding-inline-end: 0.5em;
+        }
+    }
 }
 
 .pagination-btn {

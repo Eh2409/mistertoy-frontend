@@ -3,14 +3,16 @@ import { authService } from "../../services/auth.service.remote.js"
 import { userService } from "../../services/user.service.remote.js"
 
 import { store } from "../store.js"
-import { SET_USER, SET_USERS, REMOVE_USER } from "../reducers/user.reducer.js"
+import { SET_USER, SET_USERS, REMOVE_USER, UPDATE_USER } from "../reducers/user.reducer.js"
+import { SET_LOADER } from "../reducers/toy.reducer.js"
 
 export const userAction = {
     login,
     signup,
     logout,
     loadUsers,
-    removeUser
+    removeUser,
+    updateUser
 }
 
 // auth
@@ -48,12 +50,17 @@ async function logout() {
 // user 
 
 async function loadUsers() {
+    store.dispatch({ type: SET_LOADER, isLoad: true })
     try {
         const users = await userService.query()
         store.dispatch({ type: SET_USERS, users })
     } catch (err) {
         console.log('user actions => Cannot load users:', err)
         throw err
+    } finally {
+        setTimeout(() => {
+            store.dispatch({ type: SET_LOADER, isLoad: false })
+        }, 350)
     }
 }
 
@@ -63,7 +70,18 @@ async function removeUser(userId) {
         store.dispatch({ type: REMOVE_USER, userId })
 
     } catch (err) {
-        console.log('toy actions => Cannot remove toy:', err)
+        console.log('user actions => Cannot remove user:', err)
         throw err
     }
 }
+
+async function updateUser(user) {
+    try {
+        const updatedUser = await userService.update(user)
+        store.dispatch({ type: UPDATE_USER, user: updatedUser })
+    } catch (err) {
+        console.log('user actions => Cannot update user:', err)
+        throw err
+    }
+}
+

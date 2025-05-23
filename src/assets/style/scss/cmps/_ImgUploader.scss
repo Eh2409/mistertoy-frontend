@@ -1,22 +1,15 @@
 .img-uploader {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .remove-img {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+    gap: 0.5em;
 
-    .image-upload-btn {
-        cursor: pointer;
-        border-radius: em(10px);
+    .prev-img {
+        border-radius: 50%;
         outline: solid 2px black;
 
-        width: 200px;
+        width: 80px;
         aspect-ratio: 1/1;
-
-        &:hover {
-            filter: opacity(0.5);
-        }
     }
 }

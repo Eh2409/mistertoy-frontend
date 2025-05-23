@@ -20,9 +20,9 @@ async function login({ username, password }) {
     }
 }
 
-async function signup({ username, password, fullname }) {
+async function signup({ username, password, fullname, profileImg }) {
     try {
-        const newUser = await httpService.post(BASE_URL + 'signup', { username, password, fullname })
+        const newUser = await httpService.post(BASE_URL + 'signup', { username, password, fullname, profileImg })
         return _setLoggedInUser(newUser)
     } catch (err) {
         console.error('Signup failed:', err)
@@ -50,7 +50,8 @@ function _setLoggedInUser(user) {
         _id: user._id,
         username: user.username,
         fullname: user.fullname,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        profileImg: user.profileImg
     }
 
     sessionStorage.setItem(KEY_LOGGEDIN_USER, JSON.stringify(userToSave))

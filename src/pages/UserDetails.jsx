@@ -4,11 +4,16 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { reviewActions } from '../store/actions/review.actions.js'
 import { ToyReviews } from '../cmps/ToyReviews.jsx'
 import { useParams, useNavigate } from "react-router-dom"
+import { ImgUploader } from '../cmps/ImgUploader.jsx'
+import { userAction } from '../store/actions/user.actions.js'
+
 
 export function UserDetails() {
     const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
     const reviews = useSelector(storeState => storeState.reviewModule.reviews)
+
     const [isReviewSet, setIsReviewSet] = useState(false)
+    const [newProfileImg, setNewProfileImg] = useState(null)
 
     const navigate = useNavigate()
 
@@ -24,6 +29,10 @@ export function UserDetails() {
         }
     }, [])
 
+    function onSetNewProfileImg(img) {
+        setNewProfileImg(img)
+    }
+
     async function loadReviews(FilterBy) {
         try {
             await reviewActions.loadReviews(FilterBy)
@@ -34,13 +43,30 @@ export function UserDetails() {
         }
     }
 
+    async function pnSaveProfileImg() {
+        const userToSave = { ...loggedinUser, profileImg: newProfileImg }
+        try {
+            await userAction.updateUser(userToSave)
+            showSuccessMsg('Profile image saved')
+        } catch (err) {
+            console.log('err:', err)
+            showErrorMsg('Cannot save profile image')
+        }
+    }
+
     if (!loggedinUser) return
     return (
         <section className="user-details">
             <h2>{loggedinUser?.fullname}</h2>
 
-            <div className='user-settings'>
-
+            <div className='user-profile-settings flex justify-center align-center'>
+                <ImgUploader
+                    currImage={loggedinUser?.profileImg}
+                    onSaveImage={onSetNewProfileImg}
+                />
+                {newProfileImg &&
+                    <button onClick={pnSaveProfileImg}>Save Profile Image</button>
+                }
             </div>
 
             <h2>My Reviews</h2>

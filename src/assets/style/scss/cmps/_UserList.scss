@@ -1,0 +1,35 @@
+.user-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1em;
+
+    .user-preview {
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: 2 span;
+        gap: 0.2em;
+
+        border-radius: 0.1em;
+        overflow: hidden;
+
+        background-color: $bgColor1;
+
+        outline: 1px solid rgba(0, 0, 0, .25);
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, .25);
+
+        .user-info {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            align-items: center;
+            gap: 0.5em;
+            padding: 10px;
+
+            .profile-image {
+                width: 50px;
+                aspect-ratio: 1/1;
+                border-radius: 50%;
+                outline: 2px solid $bgColor4;
+            }
+        }
+    }
+}

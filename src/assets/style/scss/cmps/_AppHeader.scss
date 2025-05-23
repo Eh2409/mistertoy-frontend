@@ -2,6 +2,131 @@
     padding-block: 1em;
 
     nav {
+        display: flex;
         gap: 1em;
     }
+
+    .mobile-nav-btn {
+        display: none;
+    }
+
+    .user-btn-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: em(250px);
+
+        .user-btn {
+            position: relative;
+            min-width: em(100px);
+
+            .user-menu-wrapper {
+                cursor: auto;
+                padding: em(15px) em(2px) em(2px) em(2px);
+
+                pointer-events: auto;
+
+                position: absolute;
+                top: 80%;
+                left: 50%;
+                transform-origin: center center;
+                transform: translateX(-50%) scale(0.9);
+
+                pointer-events: none;
+                opacity: 0;
+                z-index: 20;
+                place-self: center;
+                scale: 0.9.9;
+
+                transition: transform 150ms ease-in-out, opacity 150ms ease-in-out;
+            }
+
+            &:hover {
+                .user-menu-wrapper {
+                    pointer-events: visible;
+                    opacity: 1;
+                    transform: translateX(-50%) scale(1);
+                }
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 750px) {
+    .main-header {
+        position: relative;
+
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+
+            gap: 0em;
+            padding-block-start: 2em;
+
+            border-radius: 10px 0px 0px 10px;
+
+            min-width: 150px;
+
+            transform: translateX(100%);
+
+            background-color: white;
+            box-shadow: -1px 0px 2px $bgColor3;
+            z-index: 30;
+
+            transition: 180ms ease-in-out;
+
+            &.nav-open {
+                transform: translateY(0%);
+            }
+
+            a {
+                padding: 0.5em 0.5em 0.5em 1em;
+
+                &:hover {
+                    color: $fontColor1;
+                    background-color: $bgColor3;
+                }
+            }
+        }
+
+        .mobile-nav-btn {
+            display: inline-block;
+
+            img {
+                display: block;
+                width: 20px;
+                aspect-ratio: 1/1;
+            }
+        }
+
+        .mobile-nav-black-wrapper {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 15;
+            opacity: 0;
+            pointer-events: none;
+            transition: 200ms;
+
+            &.active {
+                opacity: 1;
+                pointer-events: visible;
+            }
+        }
+
+        .user-btn-container {
+            min-width: max-content;
+        }
+    }
+
+
 }

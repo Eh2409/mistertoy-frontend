@@ -11,8 +11,16 @@
         box-shadow: 0px 4px $bgColor5;
     }
 
-    .user-settings {
+    .user-profile-settings {
         padding: 0.5em;
+
+        .prev-img {
+            width: 150px;
+        }
+
+        button {
+            font-size: 1em;
+        }
     }
 
     .no-review-msg {

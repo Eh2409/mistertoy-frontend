@@ -7,7 +7,7 @@ export function ImgUploader({ onSaveImage, currImage = null }) {
 
     const [prevImage, setPrevImage] = useState({ imgUrl: null })
     const [isLoading, setIsLoading] = useState(false)
-    console.log('Here:', prevImage)
+    console.log('prevImage:', prevImage)
 
     useEffect(() => {
         if (currImage) {
@@ -21,6 +21,7 @@ export function ImgUploader({ onSaveImage, currImage = null }) {
         setIsLoading(true)
 
         const { secure_url } = await uploadService.uploadImg(ev)
+        console.log('Here:', secure_url)
 
         setPrevImage({ imgUrl: secure_url })
         setIsLoading(false)
@@ -29,16 +30,20 @@ export function ImgUploader({ onSaveImage, currImage = null }) {
 
     return (
         <section className='img-uploader' title='Upload Toy Image'>
+
+            <img
+                className='prev-img'
+                src={isLoading ? imageLoader : prevImage.imgUrl || '/src/assets/img/profile-img.jpg'}
+                alt={prevImage.imgUrl || 'image-upload'}
+            />
+
             <label
                 htmlFor="upload-file"
                 onDrop={uploadImg}
                 onDragOver={(e) => e.preventDefault()}
             >
-                <img
-                    className='image-upload-btn'
-                    src={isLoading ? imageLoader : prevImage.imgUrl || '/src/assets/img/image-upload.png'}
-                    alt={prevImage.imgUrl || 'image-upload'}
-                />
+
+                <span className='upload-image-btn'>{prevImage.imgUrl ? "Change Image" : "Upload Image"}</span>
 
                 <input
                     accept="image/*"
