@@ -10,26 +10,73 @@
         text-align: center;
     }
 
-    form {
-        display: grid;
-        grid-template-columns: 1fr;
-        justify-content: center;
-        gap: 0.2em;
-        padding: 0.5em;
+    .filter-accordion {
+        form {
 
-        .text-field {
-            width: 100%;
+            display: grid;
+            justify-content: center;
+            gap: 0.2em;
+
+            .text-field {
+                width: 100%;
+            }
         }
     }
 
 }
 
+@media (max-width: 750px) {
+    .toy-filter {
+        h2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .filter-expand-btn {
+                margin-inline-start: 1em;
+                display: inline-block;
+            }
+        }
+
+        .filter-accordion {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: 500ms;
+            overflow: hidden;
+
+
+            form {
+                overflow: hidden;
+                display: grid;
+                grid-template-columns: 1fr;
+                justify-content: center;
+                gap: 0.2em;
+                padding: 0;
+                transition: padding 300ms ease;
+            }
+
+            &.active {
+                grid-template-rows: 1fr;
+
+                form {
+                    padding: 0.5em;
+                }
+            }
+        }
+    }
+
+}
 
 @include for-tablet-layout {
 
     .toy-filter {
+        .filter-expand-btn {
+            display: none;
+        }
+
         form {
             grid-template-columns: repeat(3, minmax(100px, 200px));
+            padding: 0.5em;
 
             .labels-picker {
                 grid-row: 2;
